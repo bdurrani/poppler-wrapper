@@ -1,5 +1,5 @@
 project(wrapper)
-add_library(${PROJECT_NAME} STATIC wrapper.cpp)
+add_library(${PROJECT_NAME} SHARED wrapper.cpp)
 
 # add these lines
 include(GenerateExportHeader)
@@ -15,7 +15,9 @@ target_link_libraries(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME} 
     PUBLIC ${PROJECT_SOURCE_DIR}/include
-    PUBLIC ${POPPLER_CPP_INCLUDE_DIRS})
+    PUBLIC ${POPPLER_CPP_INCLUDE_DIRS}
+    ${PROJECT_BINARY_DIR}
+)
 
 target_compile_options(${PROJECT_NAME} 
     PUBLIC ${POPPLER_CPP_CFLAGS_OTHER})

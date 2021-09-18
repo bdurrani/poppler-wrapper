@@ -1,14 +1,17 @@
 #ifndef __WRAPPER_H__
 #define __WRAPPER_H__
-// #ifdef __cplusplus
-// extern "C"
-// {
-// #endif
 
-int test();
+#include "wrapper_export.h"
 
-// #ifdef __cplusplus
-// }
-// #endif
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+  int WRAPPER_EXPORT test();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

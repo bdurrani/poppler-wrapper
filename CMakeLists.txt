@@ -1,5 +1,16 @@
 cmake_minimum_required(VERSION 3.21.1)
 
+# include(FetchContent)
+
+# FetchContent_Declare(
+#   poppler_repo
+#   GIT_REPOSITORY git@gitlab.freedesktop.org:poppler/poppler.git
+#   GIT_SHALLOW TRUE
+#   GIT_TAG tags/poppler-21.09.0
+#   )
+
+# FetchContent_MakeAvailable(poppler_repo)
+
 # This will be the name of the 
 # executable.
 # This is also the source of the 
@@ -18,3 +29,5 @@ add_subdirectory(wrapperLib)
 
 target_link_libraries(${PROJECT_NAME}
   wrapper)
+
+set_property(TARGET wrapper PROPERTY IMPORTED_LINK_INTERFACE_LANGUAGES CXX)

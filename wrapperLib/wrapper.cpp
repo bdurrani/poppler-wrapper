@@ -3,9 +3,11 @@
 #include <poppler-toc.h>
 
 using namespace poppler;
-
-int test()
+extern "C"
 {
-  document *doc = document::load_from_file("", "", "");
-  return 5;
+  int test()
+  {
+    document *doc = document::load_from_file("", "", "");
+    return 5;
+  }
 }
