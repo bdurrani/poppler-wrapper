@@ -1,12 +1,16 @@
 project(wrapper)
 
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
+
 add_library(${PROJECT_NAME} wrapper.cpp)
 
 set(BUILD_SHARED_LIBS YES)
 
-# add these lines
-include(GenerateExportHeader)
-generate_export_header(${PROJECT_NAME})
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    VERSION 0.0.1
+    SOVERSION 0
+)
 
 # source: https://stackoverflow.com/questions/29191855/what-is-the-proper-way-to-use-pkg-config-from-cmake
 find_package(PkgConfig REQUIRED)
@@ -18,12 +22,19 @@ target_link_libraries(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME} 
     PUBLIC ${PROJECT_SOURCE_DIR}/include
+    # Include output from pkg_config
     PUBLIC ${POPPLER_CPP_INCLUDE_DIRS}
+    # Need to add this to use 
+    # generated export headers
     ${PROJECT_BINARY_DIR}
 )
 
 target_compile_options(${PROJECT_NAME} 
     PUBLIC ${POPPLER_CPP_CFLAGS_OTHER})
+
+# add these lines to allow exporting symbols
+include(GenerateExportHeader)
+generate_export_header(${PROJECT_NAME})
 
 install(FILES include/wrapper/wrapper.h  DESTINATION include)
 install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}_export.h"  DESTINATION include)

@@ -32,8 +32,10 @@ sudo apt install cmake
 
 ### Install project output to custom location
 
-From the build directory
+From the top-level folder
 
 ```bash
-make DESTDIR=../_install install
+cmake --install . --prefix ../_install --config Debug
 ```
+
+This will install the debug config

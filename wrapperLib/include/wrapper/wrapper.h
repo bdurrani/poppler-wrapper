@@ -8,7 +8,7 @@ extern "C"
 {
 #endif
 
-  int WRAPPER_EXPORT test();
+  WRAPPER_EXPORT int WRAPPER_EXPORT test();
 
 #ifdef __cplusplus
 }
