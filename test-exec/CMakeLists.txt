@@ -4,10 +4,10 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(${PROJECT_NAME} 
+add_executable(test-exec
   main.cpp
 )
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(test-exec
   wrapper
 )

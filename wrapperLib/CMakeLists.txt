@@ -1,5 +1,8 @@
 project(wrapper)
-add_library(${PROJECT_NAME} SHARED wrapper.cpp)
+
+add_library(${PROJECT_NAME} wrapper.cpp)
+
+set(BUILD_SHARED_LIBS YES)
 
 # add these lines
 include(GenerateExportHeader)

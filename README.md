@@ -4,7 +4,9 @@
 git clone --recurse-submodules git@github.com:bdurrani/poppler-wrapper.git
 ```
 
-Also need popper-dev
+Also need popper-dev.
+Instead of trying to build poppler from src, we're going
+to use the dev package and rely on `pkg-config`
 
 ```bash
 sudo apt install libpoppler-cpp-dev
