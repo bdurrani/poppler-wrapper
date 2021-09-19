@@ -11,7 +11,7 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(POPPLER_CPP REQUIRED poppler-cpp)
 
 target_link_libraries(${PROJECT_NAME} 
-    ${POPPLER_CPP_STATIC_LIBRARIES})
+    PRIVATE ${POPPLER_CPP_STATIC_LIBRARIES})
 
 target_include_directories(${PROJECT_NAME} 
     PUBLIC ${PROJECT_SOURCE_DIR}/include
@@ -21,3 +21,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_compile_options(${PROJECT_NAME} 
     PUBLIC ${POPPLER_CPP_CFLAGS_OTHER})
+
+install(FILES include/wrapper/wrapper.h  DESTINATION include)
+install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}_export.h"  DESTINATION include)
+install(TARGETS ${PROJECT_NAME} DESTINATION lib)

@@ -27,3 +27,11 @@ sudo rm /etc/apt/trusted.gpg.d/kitware.gpg
 
 sudo apt install cmake
 ```
+
+### Install project output to custom location
+
+From the build directory
+
+```bash
+make DESTDIR=../_install install
+```
