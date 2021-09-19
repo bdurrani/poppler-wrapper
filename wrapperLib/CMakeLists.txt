@@ -19,9 +19,15 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 # source: https://stackoverflow.com/questions/29191855/what-is-the-proper-way-to-use-pkg-config-from-cmake
 find_package(PkgConfig REQUIRED)
 
+# pkg_search_modules() stops at the first module that matches
+# pkg_check_modules() checks all the modules in it's args
 pkg_check_modules(POPPLER_CPP REQUIRED poppler-cpp)
+# find_package(poppler-cpp CONFIG REQUIRED)
+
 
 target_link_libraries(${PROJECT_NAME} 
+    # prefer to statically link poppler
+    # the other option would be POPPLER_LIBRARIES
     PRIVATE ${POPPLER_CPP_STATIC_LIBRARIES})
 
 target_include_directories(${PROJECT_NAME} 
