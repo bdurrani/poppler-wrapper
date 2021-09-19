@@ -11,7 +11,7 @@ add_executable(${exeName}
 )
 
 target_link_libraries(${exeName}
-  wrapper
+  lib::poppler_wrapper
 )
 
 add_test(NAME Runs COMMAND ${exeName})

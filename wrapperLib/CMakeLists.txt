@@ -5,6 +5,10 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
 add_library(${PROJECT_NAME} wrapper.cpp)
 
+# define an alias to avoid any potential issues
+# with target_link_libraries
+add_library(lib::poppler_wrapper ALIAS ${PROJECT_NAME})
+
 set(BUILD_SHARED_LIBS YES)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
