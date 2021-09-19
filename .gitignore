@@ -46,3 +46,25 @@ _deps
 out/build/
 build/
 _install
+
+# dotnet
+bin
+obj
+.DS_Store
+appsettings.json
+
+# sqlite db and tmp files
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# release build output
+output

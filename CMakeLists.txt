@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21.1)
+cmake_minimum_required(VERSION 3.16)
 
 # include(FetchContent)
 
@@ -15,7 +15,7 @@ cmake_minimum_required(VERSION 3.21.1)
 # executable.
 # This is also the source of the 
 # version information
-project(poppler_build VERSION 1.0 LANGUAGES C CXX)
+project(poppler_build VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_EXTENSIONS OFF)

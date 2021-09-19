@@ -1,4 +1,4 @@
 {
   "cmake.configureOnOpen": true,
-  "cmake.generator": "Unix Makefiles"
+  "cmake.generator": "Ninja Multi-Config"
 }
