@@ -5,6 +5,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(exeName test-exec)
+
 add_executable(${exeName}
   main.cpp
 )
@@ -12,3 +13,5 @@ add_executable(${exeName}
 target_link_libraries(${exeName}
   wrapper
 )
+
+add_test(NAME Runs COMMAND ${exeName})

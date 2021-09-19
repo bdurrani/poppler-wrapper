@@ -11,11 +11,8 @@ cmake_minimum_required(VERSION 3.16)
 
 # FetchContent_MakeAvailable(poppler_repo)
 
-# This will be the name of the 
-# executable.
-# This is also the source of the 
-# version information
 project(topProject)
+enable_testing()
 
 # setting up subprojects
 # src: https://github.com/ttroy50/cmake-examples/tree/master/02-sub-projects/A-basic
