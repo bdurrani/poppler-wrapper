@@ -9,7 +9,12 @@ extern "C"
 {
   int test(const char *filePath)
   {
-    document *doc = document::load_from_file("", "", "");
+    document *doc = document::load_from_file(filePath, "", "");
     return 5;
+  }
+
+  int testingStrings(const wchar_t *input)
+  {
+    return 21;
   }
 }
