@@ -8,21 +8,20 @@ Finds the poppler cpp information via pkg-config
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(PC_POPPLER_CPP REQUIRED poppler-cpp)
 
-
 set(PopplerCpp_VERSION ${PC_POPPLER_CPP_VERSION})
-
 set(PopplerCpp_INCLUDE_DIRS ${PC_POPPLER_CPP_INCLUDE_DIRS})
-
 
 if(PC_POPPLER_CPP_FOUND AND NOT TARGET poppler::Cpp)
   add_library(poppler::Cpp INTERFACE IMPORTED)
   set_target_properties(poppler::Cpp PROPERTIES
+        IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
         INTERFACE_INCLUDE_DIRECTORIES "${PC_POPPLER_CPP_INCLUDE_DIRS}"
         INTERFACE_LINK_LIBRARIES "${PC_POPPLER_CPP_STATIC_LIBRARIES}"
         INTERFACE_COMPILE_OPTIONS "${PC_POPPLER_CPP_CFLAGS}"
+        VERSION "${PC_POPPLER_CPP_VERSION}"
     )
 ELSE (PC_POPPLER_CPP_FOUND)
-    MESSAGE(FATAL_ERROR "Could not find PNG library")
+    MESSAGE(FATAL_ERROR "Could not find poppler-cpp library")
 endif()
 
 mark_as_advanced(PopplerCpp_FOUND PopplerCpp_INCLUDE_DIRS PopplerCpp_VERSION)

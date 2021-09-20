@@ -1,24 +1,4 @@
-### Required dependencies
-
-```bash
-apt install pkg-config
-
-apt-get install --yes --no-install-recommends build-essential cmake ninja-build libjpeg-dev libopenjp2-7-dev qtbase5-dev gobject-introspection libglib2.0-dev libgtk-3-dev libgirepository1.0-dev libnss3-dev ca-certificates libcurl4-nss-dev liblcms2-dev libboost-container-dev
-```
-
-### Clone with submodules
-
-```bash
-git clone --recurse-submodules git@github.com:bdurrani/poppler-wrapper.git
-```
-
-Also need popper-dev.
-Instead of trying to build poppler from src, we're going
-to use the dev package and rely on `pkg-config`
-
-```bash
-sudo apt install libpoppler-cpp-dev
-```
+# CMake Notes
 
 ### Install latest CMake on Ubuntu
 
@@ -38,6 +18,28 @@ sudo rm /etc/apt/trusted.gpg.d/kitware.gpg
 sudo apt install cmake
 ```
 
+### Required dependencies
+
+```bash
+apt install pkg-config
+
+apt-get install --yes --no-install-recommends build-essential cmake ninja-build libjpeg-dev libopenjp2-7-dev qtbase5-dev gobject-introspection libglib2.0-dev libgtk-3-dev libgirepository1.0-dev libnss3-dev ca-certificates libcurl4-nss-dev liblcms2-dev libboost-container-dev
+```
+
+Also need popper-dev.
+Instead of trying to build poppler from src, we're going
+to use the dev package and rely on `pkg-config`
+
+```bash
+sudo apt install libpoppler-cpp-dev
+```
+
+### Clone with submodules
+
+```bash
+git clone --recurse-submodules git@github.com:bdurrani/poppler-wrapper.git
+```
+
 ### Install project output to custom location
 
 From the build folder
@@ -55,3 +57,21 @@ From the build folder
 ```bash
 ctest -C Debug
 ```
+
+## References
+
+Some good CMake examples
+http://ttroy50.github.io/cmake-examples/
+https://github.com/ttroy50/cmake-examples
+
+Modern CMake
+https://www.youtube.com/watch?v=mn1ZnO3MtVk
+https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1
+https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/
+https://github.com/pabloariasal/modern-cmake-sample
+
+This has an example of a Find\*\*\*.cmake module
+https://github.com/boostcon/cppnow_presentations_2017/blob/master/05-19-2017_friday/effective_cmake__daniel_pfeifer__cppnow_05-19-2017.pdf
+
+This is how CMake sets up PostgreSql
+https://github.com/Kitware/CMake/blob/master/Modules/FindPostgreSQL.cmake

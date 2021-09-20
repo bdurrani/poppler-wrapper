@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 
+# You can also use ExternalProject_Add()
+# An example of this: https://mirkokiefer.com/cmake-by-example-f95eb47d45b1
+
 # include(FetchContent)
 
 # FetchContent_Declare(
