@@ -11,7 +11,7 @@ cmake_minimum_required(VERSION 3.16)
 
 # FetchContent_MakeAvailable(poppler_repo)
 
-list(APPEND CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 project(topProject)
 enable_testing()

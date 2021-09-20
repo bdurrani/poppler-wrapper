@@ -1,7 +1,10 @@
 project(wrapper)
 
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
+# set(CMAKE_C_VISIBILITY_PRESET hidden)
+# set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+# set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
+
+set(BUILD_SHARED_LIBS YES)
 
 add_library(${PROJECT_NAME} wrapper.cpp)
 
@@ -9,7 +12,6 @@ add_library(${PROJECT_NAME} wrapper.cpp)
 # with target_link_libraries
 add_library(lib::poppler_wrapper ALIAS ${PROJECT_NAME})
 
-set(BUILD_SHARED_LIBS YES)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     VERSION 0.0.1
@@ -21,26 +23,28 @@ find_package(PkgConfig REQUIRED)
 
 # pkg_search_modules() stops at the first module that matches
 # pkg_check_modules() checks all the modules in it's args
-pkg_check_modules(POPPLER_CPP REQUIRED poppler-cpp)
-# find_package(poppler-cpp CONFIG REQUIRED)
+# pkg_check_modules(POPPLER_CPP REQUIRED poppler-cpp)
+find_package(PopplerCpp REQUIRED)
 
 
 target_link_libraries(${PROJECT_NAME} 
     # prefer to statically link poppler
     # the other option would be POPPLER_LIBRARIES
-    PRIVATE ${POPPLER_CPP_STATIC_LIBRARIES})
+    # PRIVATE ${POPPLER_CPP_STATIC_LIBRARIES}
+    PRIVATE poppler::Cpp
+)
 
 target_include_directories(${PROJECT_NAME} 
     PUBLIC ${PROJECT_SOURCE_DIR}/include
     # Include output from pkg_config
-    PUBLIC ${POPPLER_CPP_INCLUDE_DIRS}
+    # PUBLIC ${POPPLER_CPP_INCLUDE_DIRS}
     # Need to add this to use 
     # generated export headers
     ${PROJECT_BINARY_DIR}
 )
 
-target_compile_options(${PROJECT_NAME} 
-    PUBLIC ${POPPLER_CPP_CFLAGS_OTHER})
+# target_compile_options(${PROJECT_NAME} 
+#     PUBLIC ${POPPLER_CPP_CFLAGS_OTHER})
 
 # add these lines to allow exporting symbols
 include(GenerateExportHeader)
