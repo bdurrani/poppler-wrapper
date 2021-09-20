@@ -1,3 +1,11 @@
+### Required dependencies
+
+```bash
+apt install pkg-config
+
+apt-get install --yes --no-install-recommends build-essential cmake ninja-build libjpeg-dev libopenjp2-7-dev qtbase5-dev gobject-introspection libglib2.0-dev libgtk-3-dev libgirepository1.0-dev libnss3-dev ca-certificates libcurl4-nss-dev liblcms2-dev libboost-container-dev
+```
+
 ### Clone with submodules
 
 ```bash

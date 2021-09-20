@@ -1,6 +1,7 @@
 #[==[
 Reference: https://github.com/Kitware/CMake/blob/master/Modules/FindPostgreSQL.cmake
 
+Finds the poppler cpp information via pkg-config
 #]==]
 
 

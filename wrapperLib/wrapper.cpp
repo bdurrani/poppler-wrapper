@@ -1,3 +1,4 @@
+#include "wrapper/wrapper.h"
 #include <poppler-document.h>
 #include <poppler-page.h>
 #include <poppler-toc.h>
