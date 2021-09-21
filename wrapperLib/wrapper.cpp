@@ -10,6 +10,10 @@ extern "C"
   int test(const char *filePath)
   {
     document *doc = document::load_from_file(filePath, "", "");
+    if (doc)
+    {
+      return 21;
+    }
     return 5;
   }
 
