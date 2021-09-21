@@ -1,11 +1,11 @@
-project(wrapper)
+project(wrapper VERSION 0.0.1)
 
 set(CMAKE_C_VISIBILITY_PRESET hidden)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
 set(BUILD_SHARED_LIBS YES)
-
+configure_file(wrapper_version.h.in wrapper_version.h @ONLY)
 add_library(${PROJECT_NAME} wrapper.cpp)
 
 # define an alias to avoid any potential issues
@@ -14,8 +14,8 @@ add_library(lib::poppler_wrapper ALIAS ${PROJECT_NAME})
 
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    VERSION 0.0.1
-    SOVERSION 0
+    VERSION ${wrapper_VERSION}
+    SOVERSION ${wrapper_VERSION_MAJOR}
 )
 
 # source: https://stackoverflow.com/questions/29191855/what-is-the-proper-way-to-use-pkg-config-from-cmake
@@ -24,7 +24,6 @@ find_package(PkgConfig REQUIRED)
 # pkg_search_modules() stops at the first module that matches
 # pkg_check_modules() checks all the modules in it's args
 pkg_check_modules(poppler-cpp REQUIRED IMPORTED_TARGET poppler-cpp)
-# find_package(PopplerCpp REQUIRED)
 
 
 target_link_libraries(${PROJECT_NAME} 
@@ -50,6 +49,15 @@ target_include_directories(${PROJECT_NAME}
 include(GenerateExportHeader)
 generate_export_header(${PROJECT_NAME})
 
-install(FILES include/wrapper/wrapper.h  DESTINATION include)
-install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}_export.h"  DESTINATION include)
-install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+include(GNUInstallDirs)
+install(TARGETS ${PROJECT_NAME})
+
+install(FILES include/wrapper/wrapper.h  
+    DESTINATION include
+)
+
+install(FILES 
+    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}_export.h" 
+    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}_version.h" 
+    DESTINATION include
+)

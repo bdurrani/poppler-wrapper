@@ -1,0 +1,9 @@
+#ifndef __WRAPPER_VERSION_H__
+#define __WRAPPER_VERSION_H__
+
+extern "C" const char *getWrapperVersion()
+{
+  return "@wrapper_VERSION@";
+}
+
+#endif // __WRAPPER_VERSION_H__
