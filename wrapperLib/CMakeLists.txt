@@ -12,11 +12,13 @@ add_library(${PROJECT_NAME} wrapper.cpp)
 # with target_link_libraries
 add_library(lib::poppler_wrapper ALIAS ${PROJECT_NAME})
 
-
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    VERSION ${wrapper_VERSION}
-    SOVERSION ${wrapper_VERSION_MAJOR}
-)
+# skip setting the version
+# we only want a version-less shared lib
+# source: https://stackoverflow.com/questions/11866597/how-to-prevent-cmake-from-creating-a-symlink-for-shared-libraries-on-install
+# set_target_properties(${PROJECT_NAME} PROPERTIES
+    # VERSION ${wrapper_VERSION}
+    # SOVERSION ${wrapper_VERSION}
+# )
 
 # source: https://stackoverflow.com/questions/29191855/what-is-the-proper-way-to-use-pkg-config-from-cmake
 find_package(PkgConfig REQUIRED)

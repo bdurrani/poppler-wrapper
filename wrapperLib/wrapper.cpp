@@ -1,5 +1,6 @@
 #include <memory>
 #include "wrapper/wrapper.h"
+#include "wrapper/wrapper-private.h"
 #include <poppler-document.h>
 #include <poppler-page.h>
 #include <poppler-toc.h>
@@ -10,15 +11,21 @@ extern "C"
   int test(const char *filePath)
   {
     document *doc = document::load_from_file(filePath, "", "");
-    if (doc)
+    if (!doc)
     {
-      return 21;
+      return 1;
     }
-    return 5;
+
+    return 0;
   }
 
-  int testingStrings(const wchar_t *input)
+  int testingStrings(const char *input)
   {
     return 21;
   }
+}
+
+bool isDocumentOk(poppler::document *doc)
+{
+  return true;
 }
