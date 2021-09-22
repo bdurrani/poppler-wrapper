@@ -6,8 +6,19 @@
     <RootNamespace>console_app</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup >
-    <NativeLib Include=".\runtimes\linux-x64/native/*.so" />
+  <ImportGroup>
+    <Import Project="Platform.props"/>
+  </ImportGroup>
+
+  <Target Name="PrintRID" BeforeTargets="Build">
+    <Message Text="IsWindows $(IsWindows)" Importance="high" />
+    <Message Text="IsOSX $(IsOSX)" Importance="high" />
+    <Message Text="IsLinux $(IsLinux)" Importance="high" />
+    <Message Text="IsX64 $(IsX64)" Importance="high" />
+  </Target>
+
+  <ItemGroup Condition=" '$(IsX64)' == 'true' AND '$(IsLinux)' == 'true' ">
+    <NativeLib Include="./runtimes/linux-x64/*" />
   </ItemGroup>
 
   <Target Name="CopyNativeLib" AfterTargets="Build">
@@ -15,17 +26,10 @@
   </Target>
 
   <ItemGroup>
-    <None Update=".\runtimes\linux-x64\native\libwrapper.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-
-
     <None Include="content\*" PackagePath="runtimes/linux-x64/native/" Pack="true" />
     <None Include="Mime.targets" PackagePath="build" Pack="true" />
     <None Include="Platform.props" PackagePath="build" Pack="true" />
   </ItemGroup>
+
 
 </Project>
