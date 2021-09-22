@@ -41,8 +41,11 @@ target_include_directories(${PROJECT_NAME}
     # PUBLIC ${POPPLER_CPP_INCLUDE_DIRS}
     # Need to add this to use 
     # generated export headers
-    ${PROJECT_BINARY_DIR}
+    PUBLIC ${PROJECT_BINARY_DIR}
 )
+
+# use target_compile_definitions() to set up
+# custom defines for your target
 
 # target_compile_options(${PROJECT_NAME} 
 #     PUBLIC ${POPPLER_CPP_CFLAGS_OTHER})
