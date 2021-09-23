@@ -21,6 +21,10 @@
     <NativeLib Include="./runtimes/linux-x64/*" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(IsX64)' == 'true' AND '$(IsOSX)' == 'true' ">
+    <NativeLib Include="./runtimes/osx-x64/*" />
+  </ItemGroup>
+  
   <Target Name="CopyNativeLib" AfterTargets="Build">
     <Copy SourceFiles="@(NativeLib)" DestinationFolder="$(OutputPath)" />
   </Target>
