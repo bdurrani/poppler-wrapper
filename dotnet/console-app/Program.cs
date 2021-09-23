@@ -7,6 +7,8 @@ namespace console_app
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            var result = PopplerNative.testingStrings("hellp");
+            return;
         }
     }
 }

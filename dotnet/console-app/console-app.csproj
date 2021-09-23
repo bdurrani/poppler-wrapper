@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ImportGroup>
-    <Import Project="Platform.props"/>
+    <Import Project="Platform.props" />
   </ImportGroup>
 
   <Target Name="PrintRID" BeforeTargets="Build">
