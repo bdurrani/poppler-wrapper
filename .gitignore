@@ -68,3 +68,5 @@ lerna-debug.log*
 
 # release build output
 output
+
+.idea/

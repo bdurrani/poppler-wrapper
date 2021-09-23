@@ -26,6 +26,8 @@ else()
   add_compile_options(-W -Wall -Werror)
 endif()
 
+set(CMAKE_CXX_STANDARD 14)
+
 # setting up subprojects
 # src: https://github.com/ttroy50/cmake-examples/tree/master/02-sub-projects/A-basic
 add_subdirectory(wrapperLib)  

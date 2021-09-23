@@ -21,11 +21,10 @@ extern "C"
 
   int testingStrings(const char *input)
   {
+    if (input == nullptr)
+    {
+      return 1;
+    }
     return 21;
   }
-}
-
-bool isDocumentOk(poppler::document *doc)
-{
-  return true;
 }
