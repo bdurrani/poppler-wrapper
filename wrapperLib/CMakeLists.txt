@@ -5,6 +5,7 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
 set(BUILD_SHARED_LIBS YES)
+
 configure_file(wrapper_version.h.in wrapper_version.h @ONLY)
 add_library(${PROJECT_NAME} wrapper.cpp)
 
@@ -25,14 +26,15 @@ find_package(PkgConfig REQUIRED)
 
 # pkg_search_modules() stops at the first module that matches
 # pkg_check_modules() checks all the modules in it's args
-pkg_check_modules(poppler-cpp REQUIRED IMPORTED_TARGET poppler-cpp)
-
+pkg_check_modules(POPPLER-CPP REQUIRED IMPORTED_TARGET poppler-cpp)
+pkg_check_modules(POPPLER REQUIRED IMPORTED_TARGET poppler)
 
 target_link_libraries(${PROJECT_NAME} 
     # prefer to statically link poppler
     # the other option would be POPPLER_LIBRARIES
     # PRIVATE ${POPPLER_CPP_STATIC_LIBRARIES}
-    PRIVATE PkgConfig::poppler-cpp
+    PRIVATE PkgConfig::POPPLER-CPP
+    PRIVATE PkgConfig::POPPLER
 )
 
 target_include_directories(${PROJECT_NAME} 
