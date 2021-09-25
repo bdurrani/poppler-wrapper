@@ -10,7 +10,7 @@ extern "C"
 #endif
 
   WRAPPER_EXPORT int test(const char *filePath);
-  WRAPPER_EXPORT int testingStrings(const char *input);
+  WRAPPER_EXPORT char *testingStrings(const char *input);
 
 #ifdef __cplusplus
 }

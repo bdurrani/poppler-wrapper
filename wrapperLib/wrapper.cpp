@@ -1,4 +1,6 @@
 #include <memory>
+#include <cstdlib>
+#include <string.h>
 #include "wrapper/wrapper.h"
 #include "wrapper/wrapper-private.h"
 #include <poppler-document.h>
@@ -7,7 +9,8 @@
 #include <TextOutputDev.h>
 
 #define UNUSED(x) (void)(x)
-
+#define CoTaskMemAlloc(p) malloc(p)
+#define CoTaskMemFree(p) free(p)
 // EndOfLineKind textEOL = TextOutputDev::defaultEndOfLine();
 
 using namespace poppler;
@@ -34,24 +37,25 @@ extern "C"
     auto pageCount = doc->pages();
     UNUSED(pageCount);
     auto page = doc->create_page(0);
-    page->text();
-    // textOut = new TextOutputDev("result.txt", physLayout, fixedPitch,
-    //                             rawOrder, htmlMeta, discardDiag);
-    // if (textOut->isOk())
-    // {
-    //   textOut->setTextEOL(textEOL);
-
-    // }
-    // delete textOut;
+    ustring txt = page->text();
     return 0;
   }
 
-  int testingStrings(const char *input)
+  char *testingStrings(const char *input)
   {
+    const char *test = "hello11";
+
+    auto size = strlen(test) + 1;
+    char *result = reinterpret_cast<char *>(std::malloc(size));
+    strcpy(result, test);
     if (input == nullptr)
     {
-      return 1;
+      return result;
     }
-    return 21;
+    const char *another = "boo";
+    size = strlen(another) + 1;
+    result = reinterpret_cast<char *>(std::malloc(size));
+    strcpy(result, another);
+    return result;
   }
 }
