@@ -10,15 +10,16 @@ int main(int argc, char *argv[])
   {
     cout << argv[1] << endl;
 
-    int status = test(argv[1]);
-    if (status == 21)
-    {
-      cout << "Loaded doc" << endl;
-    }
-    else
-    {
-      cout << "No doc loaded" << endl;
-    }
+    const char *status = test(argv[1]);
+    cout << status << endl;
+    // if (status == 21)
+    // {
+    //   cout << "Loaded doc" << endl;
+    // }
+    // else
+    // {
+    //   cout << "No doc loaded" << endl;
+    // }
   }
   else
   {

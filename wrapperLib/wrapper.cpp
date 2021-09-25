@@ -1,6 +1,7 @@
 #include <memory>
 #include <cstdlib>
 #include <string.h>
+#include <algorithm> // std::copy
 #include "wrapper/wrapper.h"
 #include "wrapper/wrapper-private.h"
 #include <poppler-document.h>
@@ -17,7 +18,7 @@ using namespace poppler;
 
 extern "C"
 {
-  int test(const char *filePath)
+  char *test(const char *filePath)
   {
     // TextOutputDev *textOut;
     // bool physLayout = false;
@@ -31,14 +32,17 @@ extern "C"
     document *doc = document::load_from_file(filePath, "", "");
     if (!doc)
     {
-      return 1;
+      return nullptr;
     }
 
     auto pageCount = doc->pages();
     UNUSED(pageCount);
     auto page = doc->create_page(0);
     ustring txt = page->text();
-    return 0;
+    char *writable = reinterpret_cast<char *>(std::malloc(txt.size() + 1));
+    std::copy(txt.begin(), txt.end(), writable);
+    writable[txt.size()] = '\0'; // don't forget the terminating 0
+    return writable;
   }
 
   char *testingStrings(const char *input)

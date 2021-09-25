@@ -9,7 +9,7 @@ extern "C"
 {
 #endif
 
-  WRAPPER_EXPORT int test(const char *filePath);
+  WRAPPER_EXPORT char *test(const char *filePath);
   WRAPPER_EXPORT char *testingStrings(const char *input);
 
 #ifdef __cplusplus
