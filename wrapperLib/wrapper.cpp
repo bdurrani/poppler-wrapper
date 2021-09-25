@@ -21,15 +21,6 @@ extern "C"
 {
   char *test(const char *filePath)
   {
-    // TextOutputDev *textOut;
-    // bool physLayout = false;
-    // bool fixedPitch = false;
-    // bool rawOrder = false;
-    // bool htmlMeta = false;
-    // bool discardDiag = false;
-    // double resolution = 72.0;
-
-    // UNUSED(textOut);
     document *doc = document::load_from_file(filePath, "", "");
     if (!doc)
     {
@@ -63,5 +54,25 @@ extern "C"
     result = reinterpret_cast<char *>(std::malloc(size));
     strcpy(result, another);
     return result;
+  }
+
+  char *utf8_test(const char *filePath)
+  {
+    document *doc = document::load_from_file(filePath, "", "");
+    if (!doc)
+    {
+      return nullptr;
+    }
+    std::cerr << "im in utf8" << std::endl;
+
+    auto pageCount = doc->pages();
+    std::cerr << "page count: " << pageCount << std::endl;
+    auto page = doc->create_page(0);
+    ustring txt = page->text();
+    auto buffer = txt.to_utf8();
+    char *writable = reinterpret_cast<char *>(std::malloc(buffer.size() + 1));
+    std::copy(buffer.begin(), buffer.end(), writable);
+    writable[buffer.size()] = '\0'; // don't forget the terminating 0
+    return writable;
   }
 }

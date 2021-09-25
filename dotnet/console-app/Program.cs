@@ -12,7 +12,8 @@ namespace console_app
 
       var currentWorkingDir = Directory.GetCurrentDirectory();
       var pdfPath = Path.Join(currentWorkingDir,"assets", "rbc.pdf");
-			result = PopplerNative.test(pdfPath);
+			// result = PopplerNative.test(pdfPath);
+      result = PopplerNative.Utf8Test(pdfPath);
 			Console.WriteLine(result);
 			return;
 		}
