@@ -24,7 +24,7 @@
   <ItemGroup Condition=" '$(IsX64)' == 'true' AND '$(IsOSX)' == 'true' ">
     <NativeLib Include="./runtimes/osx-x64/*" />
   </ItemGroup>
-  
+
   <Target Name="CopyNativeLib" AfterTargets="Build">
     <Copy SourceFiles="@(NativeLib)" DestinationFolder="$(OutputPath)" />
   </Target>
@@ -33,6 +33,12 @@
     <None Include="content\*" PackagePath="runtimes/linux-x64/native/" Pack="true" />
     <None Include="Mime.targets" PackagePath="build" Pack="true" />
     <None Include="Platform.props" PackagePath="build" Pack="true" />
+    <None Include="assets/rbc.pdf"/>
+
+    <ContentWithTargetPath Include="assets/rbc.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>rbc.pdf</TargetPath>
+    </ContentWithTargetPath>
   </ItemGroup>
 
 

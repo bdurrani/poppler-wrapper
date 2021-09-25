@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <string.h>
 #include <algorithm> // std::copy
+#include <iostream>
 #include "wrapper/wrapper.h"
 #include "wrapper/wrapper-private.h"
 #include <poppler-document.h>
@@ -34,6 +35,7 @@ extern "C"
     {
       return nullptr;
     }
+    std::cerr << "im here" << std::endl;
 
     auto pageCount = doc->pages();
     UNUSED(pageCount);
