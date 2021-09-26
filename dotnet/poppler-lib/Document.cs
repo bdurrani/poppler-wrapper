@@ -1,14 +1,30 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Microsoft.Win32.SafeHandles;
 
 namespace Poppler.Library
 {
+    class DocumentSafeHandle : SafeHandleZeroOrMinusOneIsInvalid
+    {
+        public DocumentSafeHandle(IntPtr handle)
+            : base(true)
+        {
+            SetHandle(handle);
+        }
+
+        protected override bool ReleaseHandle()
+        {
+            PopplerNative.delete_document(handle);
+            return true;
+        }
+    }
+
     public class Document
     {
-      private IntPtr _documentPtr;
+      private DocumentSafeHandle _documentPtr;
 
       private Document(IntPtr docPtr){
-        _documentPtr = docPtr;
+        _documentPtr = new DocumentSafeHandle(docPtr);
       }
 
       public int PageCount{

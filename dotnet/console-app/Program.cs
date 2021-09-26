@@ -9,10 +9,10 @@ namespace console_app
 		static void Main(string[] args)
 		{
 			Console.WriteLine("Hello World!");
-			var result = PopplerNative.testingStrings("hellp");
 
       var currentWorkingDir = Directory.GetCurrentDirectory();
       var pdfPath = Path.Join(currentWorkingDir,"assets", "rbc.pdf");
+      var testPdfPath = Path.Join(currentWorkingDir,"assets", "test.pdf");
 			// result = PopplerNative.test(pdfPath);
       // result = PopplerNative.Utf8Test(pdfPath);
 			// Console.WriteLine(result);
@@ -20,7 +20,7 @@ namespace console_app
       // var ptr = PopplerNative.CreateDocument(pdfPath);
       // var count = PopplerNative.GetPageCount(ptr);
 
-      var document = Document.CreateDocument(pdfPath);
+      var document = Document.CreateDocument(testPdfPath);
       var count = document.PageCount;
 			return;
 		}
