@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Poppler.Library;
 
 namespace console_app
 {
@@ -16,8 +17,11 @@ namespace console_app
       // result = PopplerNative.Utf8Test(pdfPath);
 			// Console.WriteLine(result);
 
-      var ptr = PopplerNative.CreateDocument(pdfPath);
-      var count = PopplerNative.GetPageCount(ptr);
+      // var ptr = PopplerNative.CreateDocument(pdfPath);
+      // var count = PopplerNative.GetPageCount(ptr);
+
+      var document = Document.CreateDocument(pdfPath);
+      var count = document.PageCount;
 			return;
 		}
 	}

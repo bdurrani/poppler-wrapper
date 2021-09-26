@@ -10,24 +10,24 @@
     <Import Project="Platform.props" />
   </ImportGroup>
 
-  <Target Name="PrintRID" BeforeTargets="Build">
+  <!-- <Target Name="PrintRID" BeforeTargets="Build">
     <Message Text="IsWindows $(IsWindows)" Importance="high" />
     <Message Text="IsOSX $(IsOSX)" Importance="high" />
     <Message Text="IsLinux $(IsLinux)" Importance="high" />
     <Message Text="IsX64 $(IsX64)" Importance="high" />
-  </Target>
+  </Target> -->
 
-  <ItemGroup Condition=" '$(IsX64)' == 'true' AND '$(IsLinux)' == 'true' ">
+  <!-- <ItemGroup Condition=" '$(IsX64)' == 'true' AND '$(IsLinux)' == 'true' ">
     <NativeLib Include="./runtimes/linux-x64/*" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(IsX64)' == 'true' AND '$(IsOSX)' == 'true' ">
     <NativeLib Include="./runtimes/osx-x64/*" />
-  </ItemGroup>
+  </ItemGroup> -->
 
-  <Target Name="CopyNativeLib" AfterTargets="Build">
+  <!-- <Target Name="CopyNativeLib" AfterTargets="Build">
     <Copy SourceFiles="@(NativeLib)" DestinationFolder="$(OutputPath)" />
-  </Target>
+  </Target> -->
 
   <ItemGroup>
     <None Include="content\*" PackagePath="runtimes/linux-x64/native/" Pack="true" />

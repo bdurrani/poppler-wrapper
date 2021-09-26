@@ -3,6 +3,53 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>poppler_lib</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
+  <ImportGroup>
+    <Import Project="Platform.props" />
+  </ImportGroup>
+
+  <!-- <Target Name="PrintRID" BeforeTargets="Build">
+    <Message Text="IsWindows $(IsWindows)" Importance="high" />
+    <Message Text="IsOSX $(IsOSX)" Importance="high" />
+    <Message Text="IsLinux $(IsLinux)" Importance="high" />
+    <Message Text="IsX64 $(IsX64)" Importance="high" />
+  </Target> -->
+
+  <ItemGroup Condition=" '$(IsX64)' == 'true' AND '$(IsLinux)' == 'true' ">
+    <NativeLib Include="./runtimes/linux-x64/*" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(IsX64)' == 'true' AND '$(IsOSX)' == 'true' ">
+    <NativeLib Include="./runtimes/osx-x64/*" />
+  </ItemGroup>
+
+  <Target Name="CopyNativeLib" AfterTargets="Build">
+
+    <Message Text="Path $(OutputPath)" Importance="high" />
+    <Message Text="Target $(TargetDir)" Importance="high" />
+    <Message Text="Libs $(NativeLib)" Importance="high" />
+    <!-- <Copy SourceFiles="@(NativeLib)" DestinationFolder="$(OutputPath)" /> -->
+  </Target>
+
+  <ItemGroup>
+    <!-- <None Include="@(NativeLib)" CopyToOutputDirectory="PreserveNewest" /> -->
+    <!-- <None Include="@(NativeLib)">
+      <Copy>%(RecursiveDir)%(FileName)%(Extension)</Copy>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+    </None> -->
+    <None Include="@(NativeLib)">
+      <Link>%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- This can be optimized -->
+    <None Include="runtimes\linux-x64\native\*" PackagePath="runtimes/linux-x64/native/" Pack="true" />
+    <None Include="runtimes\osx-x64\native\*" PackagePath="runtimes/osx-x64/native/" Pack="true" />
+  </ItemGroup>
 </Project>
