@@ -33,12 +33,16 @@
     <None Include="content\*" PackagePath="runtimes/linux-x64/native/" Pack="true" />
     <None Include="Mime.targets" PackagePath="build" Pack="true" />
     <None Include="Platform.props" PackagePath="build" Pack="true" />
-    <None Include="assets/rbc.pdf"/>
+    <None Include="assets/rbc.pdf" />
 
     <ContentWithTargetPath Include="assets/rbc.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>rbc.pdf</TargetPath>
     </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\poppler-lib\poppler-lib.csproj" />
   </ItemGroup>
 
 
