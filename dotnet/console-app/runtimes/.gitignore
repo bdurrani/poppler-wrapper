@@ -1,3 +1,0 @@
-# Allow shared libs here
-!libwrapper.so
-!libwrapper.dylib

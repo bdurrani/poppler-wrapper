@@ -11,9 +11,8 @@
 #include <TextOutputDev.h>
 
 #define UNUSED(x) (void)(x)
-#define CoTaskMemAlloc(p) malloc(p)
-#define CoTaskMemFree(p) free(p)
-// EndOfLineKind textEOL = TextOutputDev::defaultEndOfLine();
+// #define CoTaskMemAlloc(p) malloc(p)
+// #define CoTaskMemFree(p) free(p)
 
 using namespace poppler;
 
@@ -84,6 +83,17 @@ extern "C"
       return nullptr;
     }
     return doc;
+  }
+
+  void delete_document(void *documentPtr)
+  {
+    if (documentPtr == nullptr)
+    {
+      return;
+    }
+
+    auto doc = static_cast<document *>(documentPtr);
+    delete doc;
   }
 
   int document_get_pagecount(void *documentPtr)

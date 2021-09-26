@@ -14,6 +14,8 @@ extern "C"
   WRAPPER_EXPORT char *utf8_test(const char *filePath);
 
   WRAPPER_EXPORT void *create_new_document(const char *filePath);
+  WRAPPER_EXPORT void delete_document(void *documentPtr);
+
   WRAPPER_EXPORT int document_get_pagecount(void *documentPtr);
   WRAPPER_EXPORT void *document_get_page(void *documentPtr, int pageIndex);
   WRAPPER_EXPORT char *page_get_text(void *pagePtr);
