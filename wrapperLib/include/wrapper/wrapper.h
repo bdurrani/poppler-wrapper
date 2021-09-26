@@ -13,6 +13,9 @@ extern "C"
   WRAPPER_EXPORT char *testingStrings(const char *input);
   WRAPPER_EXPORT char *utf8_test(const char *filePath);
 
+  WRAPPER_EXPORT void *create_new_document(const char *filePath);
+  WRAPPER_EXPORT int document_get_pagecount(void *documentPtr);
+
 #ifdef __cplusplus
 }
 #endif

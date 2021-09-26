@@ -75,4 +75,21 @@ extern "C"
     writable[buffer.size()] = '\0'; // don't forget the terminating 0
     return writable;
   }
+
+  void *create_new_document(const char *filePath)
+  {
+    document *doc = document::load_from_file(filePath, "", "");
+    if (!doc)
+    {
+      return nullptr;
+    }
+    return doc;
+  }
+
+  int document_get_pagecount(void *documentPtr)
+  {
+    auto doc = static_cast<document *>(documentPtr);
+    auto pageCount = doc->pages();
+    return pageCount;
+  }
 }
