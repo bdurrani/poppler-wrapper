@@ -1,3 +1,0 @@
-[submodule "external/poppler"]
-	path = external/poppler
-	url = git@gitlab.freedesktop.org:poppler/poppler.git
