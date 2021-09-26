@@ -1,0 +1,10 @@
+{
+  "folders": [
+    {
+      "path": "./poppler-wrapper-lib"
+    },
+    {
+      "path": "./dotnet"
+    }
+  ]
+}
