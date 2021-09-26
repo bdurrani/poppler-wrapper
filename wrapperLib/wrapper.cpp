@@ -92,4 +92,28 @@ extern "C"
     auto pageCount = doc->pages();
     return pageCount;
   }
+
+  void *document_get_page(void *documentPtr, int pageIndex)
+  {
+    auto doc = static_cast<document *>(documentPtr);
+    page *page = doc->create_page(pageIndex);
+    return page;
+  }
+
+  char *page_get_text(void *pagePtr)
+  {
+    if (!pagePtr)
+    {
+      return nullptr;
+    }
+
+    auto page = static_cast<poppler::page *>(pagePtr);
+
+    ustring txt = page->text();
+    auto buffer = txt.to_utf8();
+    char *writable = reinterpret_cast<char *>(std::malloc(buffer.size() + 1));
+    std::copy(buffer.begin(), buffer.end(), writable);
+    writable[buffer.size()] = '\0'; // don't forget the terminating 0
+    return writable;
+  }
 }
