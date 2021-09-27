@@ -7,16 +7,7 @@ namespace Poppler
 	{
 		private const string WrapperLibPath = "libwrapper";
 
-		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
-		public static extern string testingStrings(string input);
-
-		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
-		public static extern string test(string input);
-
-		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr utf8_test(string input);
-
-		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
 		public static extern IntPtr create_new_document_from_file(string input);
 
 		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
@@ -36,27 +27,5 @@ namespace Poppler
 
 		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
 		public static extern IntPtr delete_text_buffer(IntPtr txtBufferPtr);
-
-    public static string Utf8Test(string filePath)
-    {
-      var ptr = utf8_test(filePath);
-      if(ptr == IntPtr.Zero)
-      {
-        return string.Empty;
-      }
-      string? result = Marshal.PtrToStringUTF8(ptr);
-      return result ?? string.Empty;
-    }
-
-    public static IntPtr CreateDocument(string filePath)
-    {
-      var docPtr = create_new_document_from_file(filePath);
-      return docPtr;
-    }
-
-    // public static int GetPageCount(IntPtr documentPtr)
-    // {
-    //   return document_get_pagecount(documentPtr);
-    // }
 	}
 }

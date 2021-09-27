@@ -8,8 +8,6 @@ namespace console_app
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
-
       var currentWorkingDir = Directory.GetCurrentDirectory();
       var pdfPath = Path.Join(currentWorkingDir,"assets", "rbc.pdf");
       var testPdfPath = Path.Join(currentWorkingDir,"assets", "test.pdf");
