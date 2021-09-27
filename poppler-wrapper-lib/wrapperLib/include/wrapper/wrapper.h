@@ -18,7 +18,9 @@ extern "C"
 
   WRAPPER_EXPORT int document_get_pagecount(void *documentPtr);
   WRAPPER_EXPORT void *document_get_page(void *documentPtr, int pageIndex);
+
   WRAPPER_EXPORT char *page_get_text(void *pagePtr);
+  WRAPPER_EXPORT void delete_page(void *pagePtr);
 
 #ifdef __cplusplus
 }

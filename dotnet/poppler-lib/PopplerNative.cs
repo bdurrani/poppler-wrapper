@@ -23,7 +23,16 @@ namespace Poppler.Library
 		public static extern int document_get_pagecount(DocumentSafeHandle documentPtr);
 
 		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int delete_document(IntPtr documentPtr);
+		public static extern void delete_document(IntPtr documentPtr);
+
+		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
+		public static extern void delete_page(IntPtr pagePtr);
+
+		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
+		public static extern IntPtr document_get_page(DocumentSafeHandle documentPtr, int pageIndex);
+
+		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
+		public static extern IntPtr page_get_text(PageSafeHandle pagePtr );
 
     public static string Utf8Test(string filePath)
     {
@@ -32,8 +41,8 @@ namespace Poppler.Library
       {
         return string.Empty;
       }
-      string result = Marshal.PtrToStringUTF8(ptr);
-      return result;
+      string? result = Marshal.PtrToStringUTF8(ptr);
+      return result ?? string.Empty;
     }
 
     public static IntPtr CreateDocument(string filePath)

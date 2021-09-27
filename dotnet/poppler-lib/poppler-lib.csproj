@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>poppler_lib</RootNamespace>
+    <RootNamespace>Poppler</RootNamespace>
     <PlatformTarget>x64</PlatformTarget>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ImportGroup>

@@ -109,6 +109,16 @@ extern "C"
     page *page = doc->create_page(pageIndex);
     return page;
   }
+  void delete_page(void *pagePtr)
+  {
+    if (pagePtr == nullptr)
+    {
+      return;
+    }
+
+    auto page = static_cast<poppler::page *>(pagePtr);
+    delete page;
+  }
 
   char *page_get_text(void *pagePtr)
   {

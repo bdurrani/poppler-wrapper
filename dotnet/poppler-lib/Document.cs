@@ -1,43 +1,43 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using Microsoft.Win32.SafeHandles;
 
 namespace Poppler.Library
 {
-    class DocumentSafeHandle : SafeHandleZeroOrMinusOneIsInvalid
-    {
-        public DocumentSafeHandle(IntPtr handle)
-            : base(true)
-        {
-            SetHandle(handle);
-        }
+  public class Document : IDisposable
+  {
+    private readonly DocumentSafeHandle _documentPtr;
 
-        protected override bool ReleaseHandle()
-        {
-            PopplerNative.delete_document(handle);
-            return true;
-        }
+    private Document(IntPtr docPtr)
+    {
+      _documentPtr = new DocumentSafeHandle(docPtr);
     }
 
-    public class Document
+    public int PageCount => PopplerNative.document_get_pagecount(_documentPtr);
+
+    public Page GetPage(int pageNumber)
     {
-      private DocumentSafeHandle _documentPtr;
+      var pagePtr = PopplerNative.document_get_page(_documentPtr, pageNumber);
+      return new Page(pagePtr);
+    }
 
-      private Document(IntPtr docPtr){
-        _documentPtr = new DocumentSafeHandle(docPtr);
-      }
+    public static Document CreateDocument(string path)
+    {
+      var docPtr = PopplerNative.create_new_document(path);
+      return new Document(docPtr);
+    }
 
-      public int PageCount{
-        get{
-          return PopplerNative.document_get_pagecount(_documentPtr);
-        }
-      }
-
-      public static Document CreateDocument(string path)
+    private void Dispose(bool disposing)
+    {
+      if (!_documentPtr.IsInvalid)
       {
-        var docPtr = PopplerNative.create_new_document(path);
-        return new Document(docPtr);
+        // Free the handle
+        _documentPtr.Dispose();
       }
-
     }
+
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+  }
 }

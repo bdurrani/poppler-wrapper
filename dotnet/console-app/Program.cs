@@ -20,9 +20,12 @@ namespace console_app
       // var ptr = PopplerNative.CreateDocument(pdfPath);
       // var count = PopplerNative.GetPageCount(ptr);
 
-      var document = Document.CreateDocument(testPdfPath);
+      using var document = Document.CreateDocument(testPdfPath);
       var count = document.PageCount;
-			return;
+      Console.WriteLine($"Page count: {count}");
+      var page = document.GetPage(0);
+      Console.WriteLine($"{page.GetText()}");
+      return;
 		}
 	}
 }
