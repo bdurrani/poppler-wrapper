@@ -9,6 +9,7 @@ set(BUILD_SHARED_LIBS YES)
 configure_file(wrapper_version.h.in wrapper_version.h @ONLY)
 add_library(${PROJECT_NAME} 
     document.cpp
+    page.cpp
 )
 
 # define an alias to avoid any potential issues

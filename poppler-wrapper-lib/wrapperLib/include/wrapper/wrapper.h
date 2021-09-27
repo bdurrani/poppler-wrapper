@@ -2,7 +2,6 @@
 #define __WRAPPER_H__
 
 #include "wrapper_export.h"
-#include "wrapper_version.h"
 
 #ifdef __cplusplus
 extern "C"
