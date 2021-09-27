@@ -22,6 +22,8 @@ extern "C"
   WRAPPER_EXPORT char *page_get_text(void *pagePtr);
   WRAPPER_EXPORT void delete_page(void *pagePtr);
 
+  WRAPPER_EXPORT void delete_text_buffer(void *txtBuffer);
+
 #ifdef __cplusplus
 }
 #endif

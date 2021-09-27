@@ -85,6 +85,16 @@ extern "C"
     return doc;
   }
 
+  void *create_new_document_from_buffer(char *buffer, int bufferLenght)
+  {
+    document *doc = document::load_from_raw_data(buffer, bufferLenght, "", "");
+    if (!doc)
+    {
+      return nullptr;
+    }
+    return doc;
+  }
+
   void delete_document(void *documentPtr)
   {
     if (documentPtr == nullptr)
@@ -109,6 +119,7 @@ extern "C"
     page *page = doc->create_page(pageIndex);
     return page;
   }
+
   void delete_page(void *pagePtr)
   {
     if (pagePtr == nullptr)
@@ -135,5 +146,10 @@ extern "C"
     std::copy(buffer.begin(), buffer.end(), writable);
     writable[buffer.size()] = '\0'; // don't forget the terminating 0
     return writable;
+  }
+
+  void delete_text_buffer(void *txtBuffer)
+  {
+    std::free(txtBuffer);
   }
 }

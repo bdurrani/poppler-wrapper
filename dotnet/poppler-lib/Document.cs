@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Poppler.Library
+namespace Poppler
 {
   public class Document : IDisposable
   {

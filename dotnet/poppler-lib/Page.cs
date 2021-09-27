@@ -1,23 +1,8 @@
 using System;
 using System.Runtime.InteropServices;
-using Microsoft.Win32.SafeHandles;
 
-namespace Poppler.Library
+namespace Poppler
 {
-  internal sealed class PageSafeHandle : SafeHandleZeroOrMinusOneIsInvalid
-  {
-    public PageSafeHandle(IntPtr handle) : base(true)
-    {
-      SetHandle(handle);
-    }
-
-    protected override bool ReleaseHandle()
-    {
-      PopplerNative.delete_page(handle);
-      return true;
-    }
-  }
-
   public class Page: IDisposable
   {
     private readonly PageSafeHandle _pageSafeHandle;
@@ -29,13 +14,14 @@ namespace Poppler.Library
 
     public string GetText()
     {
-      var ptr = PopplerNative.page_get_text(_pageSafeHandle);
+      var txtBufferPtr = PopplerNative.page_get_text(_pageSafeHandle);
 
-      if(ptr == IntPtr.Zero)
+      if(txtBufferPtr == IntPtr.Zero)
       {
         return string.Empty;
       }
-      string? result = Marshal.PtrToStringUTF8(ptr);
+      string? result = Marshal.PtrToStringUTF8(txtBufferPtr);
+      PopplerNative.delete_text_buffer(txtBufferPtr);
       return result ?? string.Empty;
     }
 

@@ -3,17 +3,16 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Poppler
 {
-  internal sealed class DocumentSafeHandle : SafeHandleZeroOrMinusOneIsInvalid
+  internal sealed class PageSafeHandle : SafeHandleZeroOrMinusOneIsInvalid
   {
-    public DocumentSafeHandle(IntPtr handle)
-      : base(true)
+    public PageSafeHandle(IntPtr handle) : base(true)
     {
       SetHandle(handle);
     }
 
     protected override bool ReleaseHandle()
     {
-      PopplerNative.delete_document(handle);
+      PopplerNative.delete_page(handle);
       return true;
     }
   }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Poppler.Library;
+using Poppler;
 
 namespace console_app
 {
@@ -20,11 +20,23 @@ namespace console_app
       // var ptr = PopplerNative.CreateDocument(pdfPath);
       // var count = PopplerNative.GetPageCount(ptr);
 
-      using var document = Document.CreateDocument(pdfPath);
-      var count = document.PageCount;
-      Console.WriteLine($"Page count: {count}");
-      using var page = document.GetPage(0);
-      Console.WriteLine($"{page.GetText()}");
+      while (true)
+      {
+        using var document = Document.CreateDocument(pdfPath);
+        var count = document.PageCount;
+        Console.WriteLine($"Page count: {count}");
+        using var page = document.GetPage(0);
+        Console.WriteLine($"{page.GetText()}");
+
+        if(Console.KeyAvailable)
+        {
+          var key = Console.ReadKey();
+          if (key.KeyChar == 'y')
+          {
+            break;
+          }
+        }
+      }
       return;
 		}
 	}

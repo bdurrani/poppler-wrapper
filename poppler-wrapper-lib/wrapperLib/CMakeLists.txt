@@ -7,7 +7,9 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 set(BUILD_SHARED_LIBS YES)
 
 configure_file(wrapper_version.h.in wrapper_version.h @ONLY)
-add_library(${PROJECT_NAME} wrapper.cpp)
+add_library(${PROJECT_NAME} 
+    document.cpp
+)
 
 # define an alias to avoid any potential issues
 # with target_link_libraries

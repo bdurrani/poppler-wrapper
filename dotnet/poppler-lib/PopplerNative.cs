@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Poppler.Library
+namespace Poppler
 {
 	internal static class PopplerNative
 	{
@@ -33,6 +33,9 @@ namespace Poppler.Library
 
 		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
 		public static extern IntPtr page_get_text(PageSafeHandle pagePtr );
+
+		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
+		public static extern IntPtr delete_text_buffer(IntPtr txtBufferPtr);
 
     public static string Utf8Test(string filePath)
     {
