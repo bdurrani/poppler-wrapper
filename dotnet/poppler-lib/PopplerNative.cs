@@ -17,7 +17,7 @@ namespace Poppler
 		public static extern IntPtr utf8_test(string input);
 
 		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr create_new_document(string input);
+		public static extern IntPtr create_new_document_from_file(string input);
 
 		[DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
 		public static extern int document_get_pagecount(DocumentSafeHandle documentPtr);
@@ -50,7 +50,7 @@ namespace Poppler
 
     public static IntPtr CreateDocument(string filePath)
     {
-      var docPtr = create_new_document(filePath);
+      var docPtr = create_new_document_from_file(filePath);
       return docPtr;
     }
 

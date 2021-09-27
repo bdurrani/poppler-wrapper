@@ -74,7 +74,7 @@ extern "C"
     return writable;
   }
 
-  void *create_new_document(const char *filePath)
+  void *create_new_document_from_file(const char *filePath)
   {
     document *doc = document::load_from_file(filePath, "", "");
     if (!doc)
@@ -84,7 +84,7 @@ extern "C"
     return doc;
   }
 
-  void *create_new_document_from_buffer(char *buffer, int bufferLenght)
+  void *create_new_document_from_buffer(const char *buffer, int bufferLenght)
   {
     document *doc = document::load_from_raw_data(buffer, bufferLenght, "", "");
     if (!doc)
@@ -105,7 +105,7 @@ extern "C"
     delete doc;
   }
 
-  int document_get_pagecount(void *documentPtr)
+  int32_t document_get_pagecount(void *documentPtr)
   {
     auto doc = static_cast<document *>(documentPtr);
     auto pageCount = doc->pages();

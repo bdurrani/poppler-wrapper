@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 
   // const char *status = test(argv[1]);
   // cout << status << endl;
-  auto doc = create_new_document(argv[1]);
+  auto doc = create_new_document_from_file(argv[1]);
   auto page = document_get_page(doc, 0);
   const char *txt = page_get_text(page);
 

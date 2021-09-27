@@ -21,7 +21,7 @@ namespace Poppler
 
     public static Document CreateDocument(string path)
     {
-      var docPtr = PopplerNative.create_new_document(path);
+      var docPtr = PopplerNative.create_new_document_from_file(path);
       return new Document(docPtr);
     }
 

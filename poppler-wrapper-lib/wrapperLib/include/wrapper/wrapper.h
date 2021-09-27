@@ -12,10 +12,12 @@ extern "C"
   WRAPPER_EXPORT char *testingStrings(const char *input);
   WRAPPER_EXPORT char *utf8_test(const char *filePath);
 
-  WRAPPER_EXPORT void *create_new_document(const char *filePath);
+  WRAPPER_EXPORT void *create_new_document_from_file(const char *filePath);
+  WRAPPER_EXPORT void *create_new_document_from_buffer(const char *buffer, int bufferLenght);
+
   WRAPPER_EXPORT void delete_document(void *documentPtr);
 
-  WRAPPER_EXPORT int document_get_pagecount(void *documentPtr);
+  WRAPPER_EXPORT int32_t document_get_pagecount(void *documentPtr);
   WRAPPER_EXPORT void *document_get_page(void *documentPtr, int pageIndex);
 
   WRAPPER_EXPORT char *page_get_text(void *pagePtr);
