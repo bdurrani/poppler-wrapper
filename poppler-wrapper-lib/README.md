@@ -20,25 +20,26 @@ sudo apt install cmake
 
 ### Required dependencies
 
+#### Ubuntu
 ```bash
 apt install pkg-config
 
-apt-get install --yes --no-install-recommends build-essential cmake ninja-build libjpeg-dev libopenjp2-7-dev qtbase5-dev gobject-introspection libglib2.0-dev libgtk-3-dev libgirepository1.0-dev libnss3-dev ca-certificates libcurl4-nss-dev liblcms2-dev libboost-container-dev libpoppler-private-dev libpoppler-cpp-dev
+apt-get install --yes --no-install-recommends build-essential cmake ninja-build libjpeg-dev libopenjp2-7-dev qtbase5-dev gobject-introspection libglib2.0-dev libgtk-3-dev libgirepository1.0-dev libnss3-dev ca-certificates libcurl4-nss-dev liblcms2-dev libboost-container-dev  libpoppler-cpp-dev
 ```
 
-Also need popper-dev.
-Instead of trying to build poppler from src, we're going
-to use the dev package and rely on `pkg-config`
+Instead of trying to build poppler from src, we're going to use the dev package and rely on `pkg-config`
 
 ```bash
 sudo apt install libpoppler-cpp-dev
 ```
 
-### Clone with submodules
+#### Mac os
 
 ```bash
-git clone --recurse-submodules git@github.com:bdurrani/poppler-wrapper.git
+brew install cmake pkg-config ninja poppler
 ```
+
+You will also need XCode installed.
 
 ### Install project output to custom location
 
@@ -48,14 +49,13 @@ From the build folder
 cmake --install . --prefix ../_install --config Debug
 ```
 
-This will install the debug config
+This will install the debug config to the `_install` folder.
+This also installs the library built under the correct folder for the .NET project.
 
 ### Running tests
 
-From the build folder
-
 ```bash
-ctest -C Debug
+./run-tests.sh
 ```
 
 ## References

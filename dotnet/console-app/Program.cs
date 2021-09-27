@@ -13,12 +13,6 @@ namespace console_app
       var currentWorkingDir = Directory.GetCurrentDirectory();
       var pdfPath = Path.Join(currentWorkingDir,"assets", "rbc.pdf");
       var testPdfPath = Path.Join(currentWorkingDir,"assets", "test.pdf");
-			// result = PopplerNative.test(pdfPath);
-      // result = PopplerNative.Utf8Test(pdfPath);
-			// Console.WriteLine(result);
-
-      // var ptr = PopplerNative.CreateDocument(pdfPath);
-      // var count = PopplerNative.GetPageCount(ptr);
 
       while (true)
       {
