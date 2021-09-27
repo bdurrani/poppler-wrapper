@@ -14,5 +14,12 @@ target_link_libraries(${exeName}
   lib::poppler_wrapper
 )
 
-add_test(NAME Runs COMMAND ${exeName} ./test-assets/WithActualText.pdf
+add_test(NAME Extracts-Text-WithActualText 
+  COMMAND ${exeName} 
+  WithActualText.pdf
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+add_test(NAME Extracts-Text-rbc 
+  COMMAND ${exeName} 
+  rbc.pdf
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})

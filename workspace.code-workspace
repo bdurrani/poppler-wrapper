@@ -6,5 +6,10 @@
     {
       "path": "./dotnet"
     }
-  ]
+  ],
+  "settings": {
+    "files.associations": {
+      "iosfwd": "cpp"
+    }
+  }
 }
