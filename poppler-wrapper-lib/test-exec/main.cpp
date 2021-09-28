@@ -66,7 +66,7 @@ bool comparePdfText(const std::string &data, const std::string &goldenDataPath)
   buffer << goldenDataStream.rdbuf();
 
   cout << "Extracted text" << endl;
-  for (char ch : data)
+  for (const char &ch : data)
   {
     cout << "0x" << to_uint(ch) << ' ';
   }
@@ -76,7 +76,7 @@ bool comparePdfText(const std::string &data, const std::string &goldenDataPath)
   cout << "Golden text" << endl;
   //  << goldenData << endl;
 
-  for (char ch : goldenData)
+  for (const char &ch : goldenData)
   {
     cout << "0x" << to_uint(ch) << ' ';
   }
