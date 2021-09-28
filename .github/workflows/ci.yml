@@ -1,0 +1,28 @@
+name: "CI"
+on: [push]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: "5.0.x"
+
+      - name: Setup build tools
+        run: |
+          sudo apt purge --auto-remove cmake
+          wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
+          sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+          sudo apt update
+          sudo apt install kitware-archive-keyring
+          sudo rm /etc/apt/trusted.gpg.d/kitware.gpg
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends pkg-config cmake build-essential cmake ninja-build libpoppler-cpp-dev
+      - name: Run CMake
+        run: |
+          cd poppler-wrapper-lib \
+          cmake -S . -B ./build
