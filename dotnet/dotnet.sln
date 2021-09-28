@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "console-app", "console-app\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "poppler-lib", "poppler-lib\poppler-lib.csproj", "{00F77DC8-8040-4C25-B376-AD738C5CF02B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test-poppler-lib", "test-poppler-lib\test-poppler-lib.csproj", "{2AE673B9-C194-4269-A0E0-BA50B782A1F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{00F77DC8-8040-4C25-B376-AD738C5CF02B}.Release|x64.Build.0 = Release|Any CPU
 		{00F77DC8-8040-4C25-B376-AD738C5CF02B}.Release|x86.ActiveCfg = Release|Any CPU
 		{00F77DC8-8040-4C25-B376-AD738C5CF02B}.Release|x86.Build.0 = Release|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Debug|x64.Build.0 = Debug|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Debug|x86.Build.0 = Debug|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Release|x64.ActiveCfg = Release|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Release|x64.Build.0 = Release|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Release|x86.ActiveCfg = Release|Any CPU
+		{2AE673B9-C194-4269-A0E0-BA50B782A1F9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
