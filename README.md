@@ -30,7 +30,7 @@ Poppler Wrapper has two parts
 
 The C++ wrapper is an artisanal C API that flattens the existing stable [C++ Poppler API](https://poppler.freedesktop.org/api/cpp/) so that it can be called via [P/Invoke](https://docs.microsoft.com/en-us/dotnet/standard/native-interop/pinvoke).
 
-More information found [here](./poppler-wrapper/README.md)
+More information found [here](https://github.com/bdurrani/poppler-wrapper/blob/master/poppler-wrapper-lib/README.md)
 
 ### .NET 
 
