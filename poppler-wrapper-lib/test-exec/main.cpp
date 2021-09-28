@@ -48,6 +48,11 @@ static string BuildGoldenDatasetPath(const string &pdfName)
   return path;
 }
 
+inline unsigned int to_uint(char ch)
+{
+  return static_cast<unsigned int>(static_cast<unsigned char>(ch));
+}
+
 bool comparePdfText(const std::string &data, const std::string &goldenDataPath)
 {
   std::ifstream goldenDataStream(goldenDataPath);
@@ -60,14 +65,24 @@ bool comparePdfText(const std::string &data, const std::string &goldenDataPath)
   std::stringstream buffer;
   buffer << goldenDataStream.rdbuf();
 
-  cout << "Extracted text" << endl
-       << data << endl;
+  cout << "Extracted text" << endl;
+  for (char ch : data)
+  {
+    cout << "0x" << to_uint(ch) << ' ';
+  }
 
+  cout << endl;
   auto goldenData = buffer.str();
-  cout << "Golden text" << endl
-       << goldenData << endl;
+  cout << "Golden text" << endl;
+  //  << goldenData << endl;
 
-  cout << "Data len: " << data.length() << endl;
+  for (char ch : goldenData)
+  {
+    cout << "0x" << to_uint(ch) << ' ';
+  }
+
+  cout << endl
+       << "Data len: " << data.length() << endl;
   cout << "Golden data len: " << buffer.str().length() << endl;
 
   return data.compare(goldenData) == 0;
