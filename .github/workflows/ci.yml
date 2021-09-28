@@ -7,10 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v1.7.2
-        with:
-          dotnet-version: "5.0.x"
 
       - name: Setup build tools
         run: |
@@ -27,6 +23,10 @@ jobs:
           pwd
           ls -al
           cd poppler-wrapper-lib
-          cmake -S . -B ./build
-          cmake --build ./build --config Debug --target all -j 14
+          ./run-cmake.sh
           ./run-tests.sh
+
+      - name: Setup .NET Core SDK 5.0.x
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: "5.0.x"
