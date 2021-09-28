@@ -28,3 +28,4 @@ jobs:
           ls -al
           cd poppler-wrapper-lib
           cmake -S . -B ./build
+          ./run-tests.sh
