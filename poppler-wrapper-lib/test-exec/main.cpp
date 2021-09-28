@@ -60,9 +60,15 @@ bool comparePdfText(const std::string &data, const std::string &goldenDataPath)
   std::stringstream buffer;
   buffer << goldenDataStream.rdbuf();
 
+  cout << "Extracted text" << endl
+       << data << endl;
+
   auto goldenData = buffer.str();
-  cout << "Data len: " << data.length() << endl
-       << " Golden data len: " << buffer.str().length();
+  cout << "Golden text" << endl
+       << goldenData << endl;
+
+  cout << "Data len: " << data.length() << endl;
+  cout << "Golden data len: " << buffer.str().length() << endl;
 
   return data.compare(goldenData) == 0;
 }
@@ -102,8 +108,6 @@ int main(int argc, char *argv[])
     documentTxt.append(txt);
     delete_text_buffer((void *)txt);
   }
-
-  cout << documentTxt;
 
   string txtFileName(pdfName);
   txtFileName = txtFileName.substr(0, txtFileName.find_last_of('.')) + ".txt";
