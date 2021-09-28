@@ -22,10 +22,11 @@ jobs:
           sudo rm /etc/apt/trusted.gpg.d/kitware.gpg
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends pkg-config cmake build-essential cmake ninja-build libpoppler-cpp-dev
-      - name: Run CMake
+      - name: Build and Test cpp library
         run: |
           pwd
           ls -al
           cd poppler-wrapper-lib
           cmake -S . -B ./build
+          cmake --build ./build --config Debug --target all -j 14
           ./run-tests.sh
