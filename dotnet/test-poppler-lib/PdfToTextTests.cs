@@ -11,13 +11,13 @@ namespace PopplerTest
     {
     }
 
-    static object[] PdfTestCases =
+    private static object[] _pdfTestCases =
     {
       new object[] { "rbc.pdf", 1 },
       new object[] { "test.pdf", 3 },
     };
 
-    [TestCaseSource(nameof(PdfTestCases))]
+    [TestCaseSource(nameof(_pdfTestCases))]
     public void PdfTest(string fileName, int pageCount)
     {
       var currentWorkingDir = Directory.GetCurrentDirectory();
