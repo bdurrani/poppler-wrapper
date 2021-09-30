@@ -36,7 +36,7 @@ extern "C"
 
 		auto page = static_cast<poppler::page *>(pagePtr);
 
-		ustring txt = page->text();
+		ustring txt = page->text(poppler::rectf(), page::text_layout_enum::physical_layout);
 		auto buffer = txt.to_utf8();
 		char *writable = reinterpret_cast<char *>(std::malloc(buffer.size() + 1));
 		std::copy(buffer.begin(), buffer.end(), writable);

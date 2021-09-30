@@ -90,23 +90,24 @@ bool comparePdfText(const std::string &data, const std::string &goldenDataPath)
   buffer << goldenDataStream.rdbuf();
 
   cout << "Extracted text" << endl;
-  for (const char &ch : data)
-  {
-    cout << "0x" << to_uint(ch) << ' ';
-  }
+  cout << data << endl;
+  // for (const char &ch : data)
+  // {
+  //   cout << "0x" << std::hex << to_uint(ch) << ' ';
+  // }
 
-  cout << endl;
+  // cout << endl;
   auto goldenData = buffer.str();
-  cout << "Golden text" << endl;
-  //  << goldenData << endl;
+  cout << "Golden text" << endl
+       << goldenData << endl;
 
-  for (const char &ch : goldenData)
-  {
-    cout << "0x" << to_uint(ch) << ' ';
-  }
+  // for (const char &ch : goldenData)
+  // {
+  //   cout << "0x" << std::hex << to_uint(ch) << ' ';
+  // }
 
   cout << endl
-       << "Data len: " << data.length() << endl;
+       << std::dec << "Data len: " << data.length() << endl;
   cout << "Golden data len: " << buffer.str().length() << endl;
 
   return data.compare(goldenData) == 0;
@@ -144,7 +145,9 @@ int main(int argc, char *argv[])
       cerr << "Output text was null" << endl;
       return 1;
     }
-    documentTxt.append(txt);
+    string strText(txt);
+    trim(strText);
+    documentTxt.append(strText);
     delete_text_buffer((void *)txt);
   }
 
