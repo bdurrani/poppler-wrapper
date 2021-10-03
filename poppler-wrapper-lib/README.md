@@ -1,4 +1,4 @@
-# CMake Notes
+# C++ Library README
 
 ### Install latest CMake on Ubuntu
 
@@ -75,6 +75,7 @@ Some good CMake examples
 - https://github.com/ttroy50/cmake-examples
 
 Modern CMake
+
 - https://www.youtube.com/watch?v=mn1ZnO3MtVk
 - https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1
 - https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/
