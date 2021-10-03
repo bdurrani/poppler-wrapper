@@ -70,17 +70,21 @@ pdftotext -f 1 -l -enc UTF-8 -layout -nopgbrk ../test.pdf
 ## References
 
 Some good CMake examples
-http://ttroy50.github.io/cmake-examples/
-https://github.com/ttroy50/cmake-examples
+
+- http://ttroy50.github.io/cmake-examples/
+- https://github.com/ttroy50/cmake-examples
 
 Modern CMake
-https://www.youtube.com/watch?v=mn1ZnO3MtVk
-https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1
-https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/
-https://github.com/pabloariasal/modern-cmake-sample
+- https://www.youtube.com/watch?v=mn1ZnO3MtVk
+- https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1
+- https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/
+- https://github.com/pabloariasal/modern-cmake-sample
 
 This has an example of a Find\*\*\*.cmake module
 https://github.com/boostcon/cppnow_presentations_2017/blob/master/05-19-2017_friday/effective_cmake__daniel_pfeifer__cppnow_05-19-2017.pdf
 
 This is how CMake sets up PostgreSql
 https://github.com/Kitware/CMake/blob/master/Modules/FindPostgreSQL.cmake
+
+Good Youtube tutorial about "Superbuilds"
+https://www.youtube.com/watch?v=nBptg3SHPGU
