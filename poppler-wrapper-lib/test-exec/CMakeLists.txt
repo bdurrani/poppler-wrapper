@@ -17,7 +17,8 @@ target_link_libraries(${exeName}
 add_test(NAME Extracts-Text-WithActualText 
   COMMAND ${exeName} 
   WithActualText.pdf
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+)
 
 add_test(NAME Extracts-Text-rbc 
   COMMAND ${exeName} 

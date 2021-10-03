@@ -21,6 +21,7 @@ sudo apt install cmake
 ### Required dependencies
 
 #### Ubuntu
+
 ```bash
 apt install pkg-config
 
@@ -56,6 +57,14 @@ This also installs the library built under the correct folder for the .NET proje
 
 ```bash
 ./run-tests.sh
+```
+
+### Generate reference text for tests
+
+You need `poppler-utils` installed for this to work.
+
+```bash
+pdftotext -f 1 -l -enc UTF-8 -layout -nopgbrk ../test.pdf
 ```
 
 ## References
