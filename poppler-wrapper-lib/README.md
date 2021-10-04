@@ -37,7 +37,7 @@ sudo apt install libpoppler-cpp-dev
 #### Mac os
 
 ```bash
-brew install cmake pkg-config ninja poppler
+brew install cmake pkg-config ninja poppler boost
 ```
 
 You will also need XCode installed.
