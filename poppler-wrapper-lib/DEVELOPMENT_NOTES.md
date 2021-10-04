@@ -15,3 +15,19 @@ of poppler.
 
 Poppler uses Ninja, so if I want to build against it, I need to use it as well.
 It errors out with anything else.
+
+### Hunting for symbols
+
+Use `nm` to check for defined symbols
+`-C` will unmangle the symbol name
+
+```bash
+nm -C libpoppler.a | grep PORT_Free
+```
+
+### Building a static lib for poppler
+
+This is going to be tough. With a static library, you're going to need a static lib
+version of all the libs used by poppler.
+
+After fighting with this for a while, I gave up on this.
