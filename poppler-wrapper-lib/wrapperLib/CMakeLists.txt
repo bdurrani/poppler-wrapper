@@ -16,11 +16,8 @@ SET(POPPLER_CPP_INCLUDE_DIR "${CMAKE_CURRENT_BINARY_DIR}/install/include/poppler
 SET(POPPLER_CPP_LIB_DIR ${CMAKE_CURRENT_BINARY_DIR}/install/lib)
 
 if(UNIX)
-  SET(BUILD_BYPRODUCTS ${POPPLER_CPP_LIB_DIR}/libpoppler-cpp.so)
-#   ${POPPLER_CPP_LIB_DIR}/libpoppler.a)
+  SET(BUILD_BYPRODUCTS "${POPPLER_CPP_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}poppler-cpp${CMAKE_SHARED_LIBRARY_SUFFIX}")
 endif()
-
-# set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 ExternalProject_Add(PopplerDownload
   URL https://poppler.freedesktop.org/poppler-21.10.0.tar.xz
@@ -35,7 +32,6 @@ ExternalProject_Add(PopplerDownload
     -D BUILD_SHARED_LIBS=ON
     -D ENABLE_GOBJECT_INTROSPECTION=OFF
     -D CMAKE_BUILD_TYPE=Release
-    -D CMAKE_POSITION_INDEPENDENT_CODE=ON
     -D CMAKE_INSTALL_PREFIX:PATH=${POPPLER_CMAKE_INSTALL_PREFIX}
 )
 
@@ -51,11 +47,11 @@ PROPERTIES
   POSITION_INDEPENDENT_CODE ON
   )
 
-add_library(Poppler::Plain SHARED IMPORTED)
-set_target_properties(Poppler::Plain
-PROPERTIES 
-  IMPORTED_LOCATION ${POPPLER_CPP_LIB_DIR}/libpoppler.so
-  )
+# add_library(Poppler::Plain SHARED IMPORTED)
+# set_target_properties(Poppler::Plain
+# PROPERTIES 
+#   IMPORTED_LOCATION ${POPPLER_CPP_LIB_DIR}/libpoppler.so
+#   )
 
 add_library(${PROJECT_NAME} 
     document.cpp
@@ -91,7 +87,7 @@ target_link_libraries(${PROJECT_NAME}
     # PRIVATE PkgConfig::POPPLER-CPP
     # PRIVATE PkgConfig::POPPLER
     PRIVATE Poppler::Cpp
-    PRIVATE Poppler::Plain
+    # PRIVATE Poppler::Plain
 )
 
 target_include_directories(${PROJECT_NAME} 
