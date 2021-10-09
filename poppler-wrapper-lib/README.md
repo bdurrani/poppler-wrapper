@@ -3,6 +3,7 @@
 ### Install latest CMake on Ubuntu
 
 Source: https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line
+Source: https://apt.kitware.com/
 
 ```bash
 sudo apt purge --auto-remove cmake
@@ -22,27 +23,38 @@ sudo apt install cmake
 
 #### Ubuntu
 
-```bash
-apt install pkg-config
+Ubuntu is using a year old version of poopler which has an issue with eating
+linefeeds.
 
-apt-get install --yes --no-install-recommends build-essential cmake ninja-build libjpeg-dev libopenjp2-7-dev qtbase5-dev gobject-introspection libglib2.0-dev libgtk-3-dev libgirepository1.0-dev libnss3-dev ca-certificates libcurl4-nss-dev liblcms2-dev libboost-container-dev  libpoppler-cpp-dev
+It's best to build the latest version of poppler locally and install that.
+See [install-dev-deps.sh](install-dev-deps.sh) for instructions on how to set that up.
+
+You can also use these steps to install poppler in a Ubunto docker image.
+
+It's a good idea to keep the local build around in case you want to remove
+the local build.
+
+If you need to remove the local build, use the `install_manifest.txt` file found in the build
+folder to remove the files
+
+```bash
+sudo xargs rm < install_manifest.txt
 ```
 
-Instead of trying to build poppler from src, we're going to use the dev package and rely on `pkg-config`
-
-```bash
-sudo apt install libpoppler-cpp-dev
-```
+This will remove anything that was installed via your CMake poppler build
 
 #### Mac os
 
+When installed using brew, poppler on the Mac Os is more up to date and does not
+have the same issues as poppler on Ubuntu.
+
 ```bash
-brew install cmake pkg-config ninja poppler
+brew install cmake pkg-config ninja poppler boost
 ```
 
 You will also need XCode installed.
 
-### Install project output to custom location
+### Install wrapper library output to custom location
 
 From the build folder
 
@@ -75,6 +87,7 @@ Some good CMake examples
 - https://github.com/ttroy50/cmake-examples
 
 Modern CMake
+
 - https://www.youtube.com/watch?v=mn1ZnO3MtVk
 - https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1
 - https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/

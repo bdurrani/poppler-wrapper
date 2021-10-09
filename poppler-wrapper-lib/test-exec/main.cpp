@@ -91,20 +91,10 @@ bool comparePdfText(const std::string &data, const std::string &goldenDataPath)
 
   cout << "Extracted text" << endl;
   cout << data << endl;
-  // for (const char &ch : data)
-  // {
-  //   cout << "0x" << std::hex << to_uint(ch) << ' ';
-  // }
 
-  // cout << endl;
   auto goldenData = buffer.str();
   cout << "Golden text" << endl
        << goldenData << endl;
-
-  // for (const char &ch : goldenData)
-  // {
-  //   cout << "0x" << std::hex << to_uint(ch) << ' ';
-  // }
 
   cout << endl
        << std::dec << "Data len: " << data.length() << endl;
@@ -146,7 +136,6 @@ int main(int argc, char *argv[])
       return 1;
     }
     string strText(txt);
-    trim(strText);
     documentTxt.append(strText);
     delete_text_buffer((void *)txt);
   }

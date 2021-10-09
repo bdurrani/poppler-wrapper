@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-ctest --test-dir ./build -C Debug --rerun-failed --output-on-failure
+ctest --test-dir ./build -C Debug --rerun-failed
