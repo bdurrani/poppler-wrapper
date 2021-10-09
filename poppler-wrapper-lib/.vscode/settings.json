@@ -1,6 +1,6 @@
 {
   "cmake.configureOnOpen": true,
-  "cmake.generator": "Ninja Multi-Config",
+  "cmake.generator": "Ninja",
   "files.associations": {
     "__bit_reference": "cpp",
     "__config": "cpp",

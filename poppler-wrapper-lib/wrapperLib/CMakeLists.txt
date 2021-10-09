@@ -7,14 +7,62 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 set(BUILD_SHARED_LIBS YES)
 
 configure_file(wrapper_version.h.in wrapper_version.h @ONLY)
+
+set(POPPLER_CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/install")
+
+include(ExternalProject)
+
+SET(POPPLER_CPP_INCLUDE_DIR "${CMAKE_CURRENT_BINARY_DIR}/install/include/poppler/cpp")
+SET(POPPLER_CPP_LIB_DIR ${CMAKE_CURRENT_BINARY_DIR}/install/lib)
+
+if(UNIX)
+  SET(BUILD_BYPRODUCTS "${POPPLER_CPP_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}poppler-cpp${CMAKE_SHARED_LIBRARY_SUFFIX}")
+endif()
+
+ExternalProject_Add(PopplerDownload
+  URL https://poppler.freedesktop.org/poppler-21.10.0.tar.xz
+  BUILD_ALWAYS OFF
+  BUILD_BYPRODUCTS ${BUILD_BYPRODUCTS}
+  CMAKE_ARGS
+    -D BUILD_GTK_TESTS=OFF
+    -D BUILD_QT5_TESTS=OFF
+    -D ENABLE_QT5=OFF
+    -D ENABLE_QT6=OFF
+    -D ENABLE_GLIB=OFF
+    -D BUILD_SHARED_LIBS=ON
+    -D ENABLE_GOBJECT_INTROSPECTION=OFF
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_PREFIX:PATH=${POPPLER_CMAKE_INSTALL_PREFIX}
+)
+
+message("Poppler includes ${POPPLER_CPP_INCLUDE_DIR}}")
+message("Poppler libs ${BUILD_BYPRODUCTS}}")
+file(MAKE_DIRECTORY ${POPPLER_CPP_INCLUDE_DIR})
+
+add_library(Poppler::Cpp SHARED IMPORTED)
+set_target_properties(Poppler::Cpp 
+PROPERTIES 
+  IMPORTED_LOCATION ${BUILD_BYPRODUCTS}
+  INTERFACE_INCLUDE_DIRECTORIES "${POPPLER_CPP_INCLUDE_DIR}"
+  POSITION_INDEPENDENT_CODE ON
+  )
+
+# add_library(Poppler::Plain SHARED IMPORTED)
+# set_target_properties(Poppler::Plain
+# PROPERTIES 
+#   IMPORTED_LOCATION ${POPPLER_CPP_LIB_DIR}/libpoppler.so
+#   )
+
 add_library(${PROJECT_NAME} 
     document.cpp
     page.cpp
 )
 
+
 # define an alias to avoid any potential issues
 # with target_link_libraries
 add_library(lib::poppler_wrapper ALIAS ${PROJECT_NAME})
+add_dependencies(${PROJECT_NAME} PopplerDownload)
 
 # skip setting the version
 # we only want a version-less shared lib
@@ -25,19 +73,21 @@ add_library(lib::poppler_wrapper ALIAS ${PROJECT_NAME})
 # )
 
 # source: https://stackoverflow.com/questions/29191855/what-is-the-proper-way-to-use-pkg-config-from-cmake
-find_package(PkgConfig REQUIRED)
+# find_package(PkgConfig REQUIRED)
 
 # pkg_search_modules() stops at the first module that matches
 # pkg_check_modules() checks all the modules in it's args
-pkg_check_modules(POPPLER-CPP REQUIRED IMPORTED_TARGET poppler-cpp)
-pkg_check_modules(POPPLER REQUIRED IMPORTED_TARGET poppler)
+# pkg_check_modules(POPPLER-CPP REQUIRED IMPORTED_TARGET poppler-cpp)
+# pkg_check_modules(POPPLER REQUIRED IMPORTED_TARGET poppler)
 
 target_link_libraries(${PROJECT_NAME} 
     # prefer to statically link poppler
     # the other option would be POPPLER_LIBRARIES
     # PRIVATE ${POPPLER_CPP_STATIC_LIBRARIES}
-    PRIVATE PkgConfig::POPPLER-CPP
-    PRIVATE PkgConfig::POPPLER
+    # PRIVATE PkgConfig::POPPLER-CPP
+    # PRIVATE PkgConfig::POPPLER
+    PRIVATE Poppler::Cpp
+    # PRIVATE Poppler::Plain
 )
 
 target_include_directories(${PROJECT_NAME} 
