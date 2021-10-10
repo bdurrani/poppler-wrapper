@@ -17,7 +17,45 @@ jobs:
           sudo apt install kitware-archive-keyring
           sudo rm /etc/apt/trusted.gpg.d/kitware.gpg
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends pkg-config cmake build-essential cmake ninja-build libpoppler-cpp-dev
+          sudo apt-get install -y --no-install-recommends \
+          pkg-config \
+          cmake \
+          build-essential \
+          ninja-build \
+          libjpeg-dev \
+          libnss3-dev \
+          ca-certificates \
+          libcurl4-nss-dev \
+          liblcms2-dev \
+          libboost-container-dev \
+          libopenjp2-7-dev \
+          libfreetype-dev \
+          libfontconfig1-dev
+
+      - name: Build and install poppler cpp
+        run: |
+          cd poppler-wrapper-lib
+          cp ./3rd-party/* /tmp
+          cd /tmp
+          tar -xvf poppler-data-0.4.11.tar.gz
+          cd poppler-data-0.4.11 && sudo make install
+          cd ..
+          tar -xvf poppler-21.09.0.tar.xz
+          cd poppler-21.09.0
+          mkdir -p build && cd build && cmake -G Ninja \
+          -DBUILD_GTK_TESTS=OFF \
+          -DENABLE_QT5=OFF \
+          -DENABLE_QT6=OFF \
+          -DENABLE_GLIB=OFF \
+          -DBUILD_QT5_TESTS=OFF \
+          -DBUILD_QT6_TESTS=OFF \
+          -DBUILD_MANUAL_TESTS=OFF \
+          -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+          ..
+
+          ninja
+          sudo cmake --install . --prefix /usr
+
       - name: Build and Test cpp library
         run: |
           pwd
