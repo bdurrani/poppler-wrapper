@@ -20,9 +20,20 @@ extern "C"
   WRAPPER_EXPORT int32_t document_get_pagecount(void *documentPtr);
   WRAPPER_EXPORT void *document_get_page(void *documentPtr, int pageIndex);
 
-  WRAPPER_EXPORT char *page_get_text(void *pagePtr);
+  /**
+   * Extracts text from the entire page, based on the layout
+   * @param txtLayout Possible values: 0 - physical_layout, 1 - raw_order_layout
+   */
+  WRAPPER_EXPORT char *page_get_text(void *pagePtr, int txtLayout);
+
+  /**
+   * Release the memory associated with the page
+   */
   WRAPPER_EXPORT void delete_page(void *pagePtr);
 
+  /**
+   * Release the buffer returned by page_get_text()
+   */
   WRAPPER_EXPORT void delete_text_buffer(void *txtBuffer);
 
 #ifdef __cplusplus

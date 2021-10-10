@@ -39,7 +39,7 @@ extern "C"
 		delete page;
 	}
 
-	char *page_get_text(void *pagePtr)
+	char *page_get_text(void *pagePtr, int textLayoutInt)
 	{
 		if (!pagePtr)
 		{
@@ -49,8 +49,9 @@ extern "C"
 		auto page = static_cast<poppler::page *>(pagePtr);
 		auto r = poppler::rectf();
 
+		auto txtLayout = static_cast<page::text_layout_enum>(textLayoutInt);
 		cout << "poppler version: " << poppler::version_string() << endl;
-		ustring txt = page->text(poppler::rectf(), page::text_layout_enum::physical_layout);
+		ustring txt = page->text(poppler::rectf(), txtLayout);
 		cout << "-----------------------" << endl;
 		cout << txt << endl
 				 << "------------------------------" << endl;

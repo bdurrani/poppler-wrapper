@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
   for (int i = 0; i < pageCount; i++)
   {
     auto page = document_get_page(doc, i);
-    const char *txt = page_get_text(page);
+    const char *txt = page_get_text(page, 1);
 
     if (txt == nullptr)
     {
