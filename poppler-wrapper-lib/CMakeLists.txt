@@ -15,6 +15,8 @@ cmake_minimum_required(VERSION 3.16)
 # FetchContent_MakeAvailable(poppler_repo)
 
 project(topProject)
+set(CMAKE_CXX_STANDARD 14)
+
 enable_testing()
 # enable all compiler warning messages across
 # all projects
@@ -26,7 +28,6 @@ else()
   add_compile_options(-W -Wall -Werror)
 endif()
 
-set(CMAKE_CXX_STANDARD 14)
 
 # setting up subprojects
 # src: https://github.com/ttroy50/cmake-examples/tree/master/02-sub-projects/A-basic

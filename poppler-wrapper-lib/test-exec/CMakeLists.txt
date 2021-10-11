@@ -6,21 +6,40 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(exeName test-exec)
 
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
+)
+
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
 add_executable(${exeName}
-  main.cpp
+  wrapper_tests.cpp
+  helpers.h
+  helpers.cpp
 )
 
 target_link_libraries(${exeName}
   lib::poppler_wrapper
+  gtest_main
 )
 
-add_test(NAME Extracts-Text-WithActualText 
-  COMMAND ${exeName} 
-  WithActualText.pdf
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+include(GoogleTest)
+gtest_discover_tests(${exeName}
+   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
+# gtest_add_tests(TARGET ${exeName})
 
-add_test(NAME Extracts-Text-rbc 
-  COMMAND ${exeName} 
-  rbc.pdf
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+# add_test(NAME Extracts-Text-WithActualText 
+#   COMMAND ${exeName} 
+#   WithActualText.pdf
+#   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+# )
+
+# add_test(NAME Extracts-Text-rbc 
+#   COMMAND ${exeName} 
+#   rbc.pdf
+#   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
