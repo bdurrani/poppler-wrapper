@@ -2,7 +2,6 @@
 #include <sys/stat.h>
 #include <iostream>
 #include "helpers.h"
-#include <string>
 #include "wrapper/wrapper.h"
 
 using namespace std;
@@ -19,6 +18,10 @@ const char kPathSeparator =
 
 const string TestFolderName = "test-assets";
 
+/**
+ * Returns true if the file exists
+ * @param Fully qualified path to file
+ */
 static inline bool exists(const char *path)
 {
   struct stat buffer;
@@ -106,4 +109,30 @@ bool isPdfExtractionCorrect(const string &pdfName)
   }
 
   return true;
+}
+
+void *ReturnsDocumentPtrFromDisk(const string &testDocumentName)
+{
+  string testPdfPath = BuildTestPdfPath(testDocumentName);
+  if (!exists(testPdfPath.c_str()))
+  {
+    cerr << "Test file not found" << testPdfPath << endl;
+    string errMessage("Test file not found: ");
+    errMessage += testDocumentName;
+    throw std::runtime_error(errMessage);
+  }
+  return create_new_document_from_file(testPdfPath.c_str());
+}
+
+void *ReturnsDocumentPtrFromBuffer(const string &testDocumentName)
+{
+  string testPdfPath = BuildTestPdfPath(testDocumentName);
+  if (!exists(testPdfPath.c_str()))
+  {
+    cerr << "Test file not found" << testPdfPath << endl;
+    string errMessage("Test file not found: ");
+    errMessage += testDocumentName;
+    throw std::runtime_error(errMessage);
+  }
+  return create_new_document_from_file(testPdfPath.c_str());
 }

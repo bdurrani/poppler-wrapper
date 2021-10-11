@@ -36,24 +36,6 @@ extern "C"
     return writable;
   }
 
-  char *testingStrings(const char *input)
-  {
-    const char *test = "hello11";
-
-    auto size = strlen(test) + 1;
-    char *result = reinterpret_cast<char *>(std::malloc(size));
-    strcpy(result, test);
-    if (input == nullptr)
-    {
-      return result;
-    }
-    const char *another = "boo";
-    size = strlen(another) + 1;
-    result = reinterpret_cast<char *>(std::malloc(size));
-    strcpy(result, another);
-    return result;
-  }
-
   char *utf8_test(const char *filePath)
   {
     document *doc = document::load_from_file(filePath, "", "");
