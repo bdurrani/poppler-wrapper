@@ -31,15 +31,3 @@ include(GoogleTest)
 gtest_discover_tests(${exeName}
    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
-# gtest_add_tests(TARGET ${exeName})
-
-# add_test(NAME Extracts-Text-WithActualText 
-#   COMMAND ${exeName} 
-#   WithActualText.pdf
-#   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-# )
-
-# add_test(NAME Extracts-Text-rbc 
-#   COMMAND ${exeName} 
-#   rbc.pdf
-#   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})

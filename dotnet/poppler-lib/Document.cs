@@ -19,9 +19,23 @@ namespace Poppler
       return new Page(pagePtr);
     }
 
-    public static Document CreateDocument(string path)
+    public static Document? CreateDocument(string path)
     {
       var docPtr = PopplerNative.create_new_document_from_file(path);
+      if (docPtr == IntPtr.Zero)
+      {
+        return null;
+      }
+      return new Document(docPtr);
+    }
+
+    public static Document? CreateDocument(byte[] buffer)
+    {
+      var docPtr = PopplerNative.create_new_document_from_buffer(buffer, buffer.Length);
+      if (docPtr == IntPtr.Zero)
+      {
+        return null;
+      }
       return new Document(docPtr);
     }
 

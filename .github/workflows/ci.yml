@@ -68,3 +68,9 @@ jobs:
         uses: actions/setup-dotnet@v1.7.2
         with:
           dotnet-version: "5.0.x"
+      - name: Install dependencies
+        run: cd dotnet && dotnet restore
+      - name: Build
+        run: cd dotnet && dotnet build --configuration Release --no-restore
+      - name: Test
+        run: cd dotnet && dotnet test --no-restore --verbosity normal

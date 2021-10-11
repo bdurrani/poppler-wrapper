@@ -71,3 +71,6 @@ output
 
 .idea/
 *.user
+
+# ignore mono crash dumps
+mono_crash.*

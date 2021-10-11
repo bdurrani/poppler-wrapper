@@ -27,10 +27,10 @@ namespace PopplerTest
       Assert.AreEqual(pageCount, document.PageCount);
       string documentText = string.Empty;
 
-      for (int i = 0; i< pageCount; i++)
+      for (int i = 0; i < pageCount; i++)
       {
         using var page = document.GetPage(i);
-        documentText += page.GetText();
+        documentText += page.GetText(TextLayout.PhysicalLayout);
       }
 
       var fileNameOnly = Path.GetFileNameWithoutExtension(fileName);
