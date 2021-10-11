@@ -32,4 +32,4 @@ endif()
 # setting up subprojects
 # src: https://github.com/ttroy50/cmake-examples/tree/master/02-sub-projects/A-basic
 add_subdirectory(wrapperLib)  
-add_subdirectory(test-exec)  
+add_subdirectory(tests)  
