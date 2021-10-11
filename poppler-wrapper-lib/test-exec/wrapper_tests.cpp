@@ -16,7 +16,6 @@ namespace
     auto ptr = ReturnsDocumentPtrFromDisk("WithActualText.pdf");
     EXPECT_NE(ptr, nullptr);
     delete_document(ptr);
-    ptr = nullptr;
 
     EXPECT_EQ(ReturnsDocumentPtrFromDisk("baddoc.pdf"), nullptr);
   }
@@ -26,8 +25,13 @@ namespace
     auto ptr = ReturnsDocumentPtrFromBuffer("WithActualText.pdf");
     EXPECT_NE(ptr, nullptr);
     delete_document(ptr);
-    ptr = nullptr;
 
     EXPECT_EQ(ReturnsDocumentPtrFromBuffer("baddoc.pdf"), nullptr);
+  }
+
+  TEST(TextExtraction, CorrectlyExtractsTestFromPDFWithPhysicalLayout)
+  {
+    EXPECT_TRUE(IsPdfExtractionCorrect("WithActualText.pdf"));
+    EXPECT_TRUE(IsPdfExtractionCorrect("rbc.pdf"));
   }
 }

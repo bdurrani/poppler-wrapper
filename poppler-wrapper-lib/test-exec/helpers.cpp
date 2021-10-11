@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iterator>
 #include <fstream>
+#include <sstream>
 #include "helpers.h"
 #include "wrapper/wrapper.h"
 
@@ -50,17 +51,17 @@ static string BuildTestPdfPath(const string &pdfName)
  * extraction result. 
  * @param string Name of the result file
  */
-// static string BuildGoldenDatasetPath(const string &pdfName)
-// {
-//   string path(".");
-//   path += kPathSeparator;
-//   path += TestFolderName;
-//   path += kPathSeparator;
-//   path += "golden-data";
-//   path += kPathSeparator;
-//   path += pdfName;
-//   return path;
-// }
+static string BuildGoldenDatasetPath(const string &pdfName)
+{
+  string path(".");
+  path += kPathSeparator;
+  path += TestFolderName;
+  path += kPathSeparator;
+  path += "golden-data";
+  path += kPathSeparator;
+  path += pdfName;
+  return path;
+}
 
 std::string GetWorkingDirectory()
 {
@@ -83,14 +84,45 @@ int GetPageCount(const string &pdfName)
   return document_get_pagecount(doc);
 }
 
-bool isPdfExtractionCorrect(const string &pdfName)
+void *ReturnsDocumentPtrFromDisk(const string &testDocumentName)
+{
+  string testPdfPath = BuildTestPdfPath(testDocumentName);
+  if (!exists(testPdfPath.c_str()))
+  {
+    string errMessage("Test file not found: ");
+    errMessage += testDocumentName;
+    throw std::runtime_error(errMessage);
+  }
+  return create_new_document_from_file(testPdfPath.c_str());
+}
+
+void *ReturnsDocumentPtrFromBuffer(const string &testDocumentName)
+{
+  std::string testPdfPath = BuildTestPdfPath(testDocumentName);
+  if (!exists(testPdfPath.c_str()))
+  {
+    string errMessage("Test file not found: ");
+    errMessage += testDocumentName;
+    throw std::runtime_error(errMessage);
+  }
+
+  // https://stackoverflow.com/questions/18398167/how-to-copy-a-txt-file-to-a-char-array-in-c
+  std::ifstream input(testPdfPath, ios::binary);
+  string contents((istreambuf_iterator<char>(input)),
+                  std::istreambuf_iterator<char>());
+  return create_new_document_from_buffer(contents.data(), contents.size());
+}
+
+bool IsPdfExtractionCorrect(const string &pdfName)
 {
   string testPdfPath = BuildTestPdfPath(pdfName);
   if (!exists(testPdfPath.c_str()))
   {
-    cerr << "Test file not found" << testPdfPath << endl;
-    return false;
+    string errMessage("Test file not found: ");
+    errMessage += testPdfPath;
+    throw std::runtime_error(errMessage);
   }
+
   auto doc = create_new_document_from_file(testPdfPath.c_str());
   auto pageCount = document_get_pagecount(doc);
 
@@ -110,34 +142,21 @@ bool isPdfExtractionCorrect(const string &pdfName)
     delete_text_buffer((void *)txt);
   }
 
-  return true;
-}
+  string txtFileName(pdfName);
+  txtFileName = txtFileName.substr(0, txtFileName.find_last_of('.')) + ".txt";
 
-void *ReturnsDocumentPtrFromDisk(const string &testDocumentName)
-{
-  string testPdfPath = BuildTestPdfPath(testDocumentName);
-  if (!exists(testPdfPath.c_str()))
-  {
-    cerr << "Test file not found" << testPdfPath << endl;
-    string errMessage("Test file not found: ");
-    errMessage += testDocumentName;
-    throw std::runtime_error(errMessage);
-  }
-  return create_new_document_from_file(testPdfPath.c_str());
-}
+  auto goldenDatasetPath = BuildGoldenDatasetPath(txtFileName);
 
-void *ReturnsDocumentPtrFromBuffer(const string &testDocumentName)
-{
-  std::string testPdfPath = BuildTestPdfPath(testDocumentName);
-  if (!exists(testPdfPath.c_str()))
+  ifstream goldenDataStream(goldenDatasetPath);
+  if (goldenDataStream.fail())
   {
-    string errMessage("Test file not found: ");
-    errMessage += testDocumentName;
+    string errMessage("Failed to read golden dataset from");
+    errMessage += goldenDatasetPath;
     throw std::runtime_error(errMessage);
   }
 
-  std::ifstream input(testPdfPath, ios::binary);
-  string contents((istreambuf_iterator<char>(input)),
-                  std::istreambuf_iterator<char>());
-  return create_new_document_from_buffer(contents.data(), contents.size());
+  std::stringstream buffer;
+  buffer << goldenDataStream.rdbuf();
+
+  return documentTxt.compare(buffer.str()) == 0;
 }
