@@ -50,6 +50,7 @@ jobs:
           -DBUILD_QT5_TESTS=OFF \
           -DBUILD_QT6_TESTS=OFF \
           -DBUILD_MANUAL_TESTS=OFF \
+          -DENABLE_UTILS=OFF \
           -DCMAKE_INSTALL_PREFIX:PATH=/usr \
           ..
 
