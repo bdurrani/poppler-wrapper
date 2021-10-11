@@ -34,6 +34,8 @@ DEBIAN_FRONTEND=noninteractive \
         libopenjp2-7-dev \
         libfreetype-dev \
         libfontconfig1-dev
+        
+# on Ubuntu 18, you will install libfreetype6-dev instead of libfreetype-dev
 
 wget "https://poppler.freedesktop.org/${POPPLER_DATA}.tar.gz"
 tar -xvf "${POPPLER_DATA}.tar.gz"
