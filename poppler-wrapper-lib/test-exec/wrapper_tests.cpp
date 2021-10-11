@@ -11,7 +11,7 @@ namespace
     EXPECT_EQ(GetPageCount("rbc.pdf"), 1);
   }
 
-  TEST(DocumentLoadingTests, LoadsDocumentsAsExpected)
+  TEST(DocumentLoadingTests, LoadsDocumentsFromFiles)
   {
     auto ptr = ReturnsDocumentPtrFromDisk("WithActualText.pdf");
     EXPECT_NE(ptr, nullptr);
@@ -21,4 +21,13 @@ namespace
     EXPECT_EQ(ReturnsDocumentPtrFromDisk("baddoc.pdf"), nullptr);
   }
 
+  TEST(DocumentLoadingTests, LoadsDocumentsFromBuffer)
+  {
+    auto ptr = ReturnsDocumentPtrFromBuffer("WithActualText.pdf");
+    EXPECT_NE(ptr, nullptr);
+    delete_document(ptr);
+    ptr = nullptr;
+
+    EXPECT_EQ(ReturnsDocumentPtrFromBuffer("baddoc.pdf"), nullptr);
+  }
 }

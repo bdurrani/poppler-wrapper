@@ -1,6 +1,8 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <iostream>
+#include <iterator>
+#include <fstream>
 #include "helpers.h"
 #include "wrapper/wrapper.h"
 
@@ -126,13 +128,16 @@ void *ReturnsDocumentPtrFromDisk(const string &testDocumentName)
 
 void *ReturnsDocumentPtrFromBuffer(const string &testDocumentName)
 {
-  string testPdfPath = BuildTestPdfPath(testDocumentName);
+  std::string testPdfPath = BuildTestPdfPath(testDocumentName);
   if (!exists(testPdfPath.c_str()))
   {
-    cerr << "Test file not found" << testPdfPath << endl;
     string errMessage("Test file not found: ");
     errMessage += testDocumentName;
     throw std::runtime_error(errMessage);
   }
-  return create_new_document_from_file(testPdfPath.c_str());
+
+  std::ifstream input(testPdfPath, ios::binary);
+  string contents((istreambuf_iterator<char>(input)),
+                  std::istreambuf_iterator<char>());
+  return create_new_document_from_buffer(contents.data(), contents.size());
 }
