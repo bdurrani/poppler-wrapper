@@ -4,5 +4,6 @@
 #include <string>
 
 std::string GetWorkingDirectory();
+int GetPageCount(const std::string &pdfName);
 
 #endif

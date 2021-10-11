@@ -6,10 +6,9 @@ using namespace std;
 
 namespace
 {
-  // Demonstrate some basic assertions.
-  TEST(HelloTest, BasicAssertions)
+  TEST(PageCountTest, ReturnsCorrectPageCount)
   {
-    // Expect equality.
-    EXPECT_EQ(1, 1);
+    EXPECT_EQ(1, GetPageCount("WithActualText.pdf"));
+    EXPECT_EQ(1, GetPageCount("rbc.pdf"));
   }
 }
