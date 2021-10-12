@@ -8,7 +8,6 @@ extern "C"
 {
 #endif
 
-  WRAPPER_EXPORT char *test(const char *filePath);
   WRAPPER_EXPORT char *testingStrings(const char *input);
   WRAPPER_EXPORT char *utf8_test(const char *filePath);
 
