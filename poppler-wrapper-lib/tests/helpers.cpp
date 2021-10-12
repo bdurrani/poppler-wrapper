@@ -63,15 +63,6 @@ static string BuildGoldenDatasetPath(const string &pdfName)
   return path;
 }
 
-std::string GetWorkingDirectory()
-{
-  char *cwd = get_current_dir_name();
-  string workingDir(cwd);
-  free(cwd);
-
-  return workingDir;
-}
-
 int GetPageCount(const string &pdfName)
 {
   string testPdfPath = BuildTestPdfPath(pdfName);
