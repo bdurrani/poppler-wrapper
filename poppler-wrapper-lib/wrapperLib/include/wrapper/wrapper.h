@@ -35,6 +35,11 @@ extern "C"
    */
   WRAPPER_EXPORT void delete_text_buffer(void *txtBuffer);
 
+  /**
+   * Returns time_t representing the PDF creation date
+   */
+  WRAPPER_EXPORT int document_get_creation_date(void *documentPtr);
+
 #ifdef __cplusplus
 }
 #endif

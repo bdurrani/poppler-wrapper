@@ -33,4 +33,9 @@ namespace
     EXPECT_TRUE(IsPdfExtractionCorrect("WithActualText.pdf"));
     EXPECT_TRUE(IsPdfExtractionCorrect("rbc.pdf"));
   }
+
+  TEST(MetadataExtraction, CorrectlyExtractionsCreationDate)
+  {
+    EXPECT_EQ(1106045198, ReturnsDocumentCreationDate("rbc.pdf"));
+  }
 }

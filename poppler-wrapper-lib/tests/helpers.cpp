@@ -48,7 +48,7 @@ static string BuildTestPdfPath(const string &pdfName)
 
 /**
  * Returns the fully qualified path to the pdftotext
- * extraction result. 
+ * extraction result.
  * @param string Name of the result file
  */
 static string BuildGoldenDatasetPath(const string &pdfName)
@@ -111,6 +111,21 @@ void *ReturnsDocumentPtrFromBuffer(const string &testDocumentName)
   string contents((istreambuf_iterator<char>(input)),
                   std::istreambuf_iterator<char>());
   return create_new_document_from_buffer(contents.data(), contents.size());
+}
+
+int ReturnsDocumentCreationDate(const string &testDocumentName)
+{
+  string testPdfPath = BuildTestPdfPath(testDocumentName);
+  if (!exists(testPdfPath.c_str()))
+  {
+    string errMessage("Test file not found: ");
+    errMessage += testPdfPath;
+    throw std::runtime_error(errMessage);
+  }
+  auto doc = create_new_document_from_file(testPdfPath.c_str());
+  auto creationDate = document_get_creation_date(doc);
+  delete_document(doc);
+  return creationDate;
 }
 
 bool IsPdfExtractionCorrect(const string &pdfName)

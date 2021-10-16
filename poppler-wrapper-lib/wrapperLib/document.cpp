@@ -109,6 +109,12 @@ extern "C"
     auto docAuthor = doc->get_author();
     return ustring_to_char(docAuthor);
   }
+
+  int document_get_creation_date(void *documentPtr)
+  {
+    auto doc = static_cast<document *>(documentPtr);
+    return doc->get_creation_date();
+  }
 }
 
 char *ustring_to_char(poppler::ustring input)
