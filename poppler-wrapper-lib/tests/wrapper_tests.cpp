@@ -28,11 +28,19 @@ namespace
     EXPECT_EQ(ReturnsDocumentPtrFromBuffer("baddoc.pdf"), nullptr);
   }
 
-  TEST(TextExtraction, CorrectlyExtractsTestFromPDFWithPhysicalLayout)
+  class TextExtractionParamTestFixture : public testing::TestWithParam<std::string>
   {
-    EXPECT_TRUE(IsPdfExtractionCorrect("WithActualText.pdf"));
-    EXPECT_TRUE(IsPdfExtractionCorrect("rbc.pdf"));
+  };
+
+  TEST_P(TextExtractionParamTestFixture, CorrectlyExtractsTestFromPDFWithPhysicalLayout)
+  {
+    EXPECT_TRUE(IsPdfExtractionCorrect(GetParam()));
   }
+
+  std::string testFiles[] = {"WithActualText.pdf", "rbc.pdf"};
+  INSTANTIATE_TEST_SUITE_P(TextExtractionTests,
+                           TextExtractionParamTestFixture,
+                           testing::ValuesIn(testFiles));
 
   TEST(MetadataExtraction, CorrectlyExtractionsCreationDate)
   {
