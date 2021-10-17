@@ -4,12 +4,6 @@
 
 namespace
 {
-  TEST(PageCountTest, ReturnsCorrectPageCount)
-  {
-    EXPECT_EQ(GetPageCount("WithActualText.pdf"), 1);
-    EXPECT_EQ(GetPageCount("rbc.pdf"), 1);
-  }
-
   TEST(DocumentLoadingTests, LoadsDocumentsFromFiles)
   {
     auto ptr = ReturnsDocumentPtrFromDisk("WithActualText.pdf");
