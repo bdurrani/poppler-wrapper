@@ -36,8 +36,4 @@ namespace
                            TextExtractionParamTestFixture,
                            testing::ValuesIn(testFiles));
 
-  TEST(MetadataExtraction, CorrectlyExtractionsCreationDate)
-  {
-    EXPECT_EQ(1106045198, ReturnsDocumentCreationDate("rbc.pdf"));
-  }
 }
