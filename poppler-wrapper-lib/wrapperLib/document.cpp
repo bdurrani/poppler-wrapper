@@ -15,6 +15,8 @@
 
 using namespace poppler;
 
+char *ustring_to_char(poppler::ustring input);
+
 extern "C"
 {
   char *test(const char *filePath)
@@ -100,4 +102,33 @@ extern "C"
     page *page = doc->create_page(pageIndex);
     return page;
   }
+
+  char *document_get_author(void *documentPtr)
+  {
+    auto doc = static_cast<document *>(documentPtr);
+    auto docAuthor = doc->get_author();
+    return ustring_to_char(docAuthor);
+  }
+
+  int document_get_creation_date(void *documentPtr)
+  {
+    auto doc = static_cast<document *>(documentPtr);
+    return doc->get_creation_date();
+  }
+
+  char *document_get_creator(void *documentPtr)
+  {
+    auto doc = static_cast<document *>(documentPtr);
+    auto creator = doc->get_creator();
+    return ustring_to_char(creator);
+  }
+}
+
+char *ustring_to_char(poppler::ustring input)
+{
+  auto buffer = input.to_utf8();
+  char *writable = reinterpret_cast<char *>(std::malloc(buffer.size() + 1));
+  std::copy(buffer.begin(), buffer.end(), writable);
+  writable[buffer.size()] = '\0'; // don't forget the terminating 0
+  return writable;
 }

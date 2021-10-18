@@ -8,7 +8,6 @@ extern "C"
 {
 #endif
 
-  WRAPPER_EXPORT char *test(const char *filePath);
   WRAPPER_EXPORT char *testingStrings(const char *input);
   WRAPPER_EXPORT char *utf8_test(const char *filePath);
 
@@ -35,6 +34,18 @@ extern "C"
    * Release the buffer returned by page_get_text()
    */
   WRAPPER_EXPORT void delete_text_buffer(void *txtBuffer);
+
+  /**
+   * Returns time_t representing the PDF creation date
+   */
+  WRAPPER_EXPORT int document_get_creation_date(void *documentPtr);
+
+  /**
+   * Returns document author
+   */
+  WRAPPER_EXPORT char *document_get_author(void *documentPtr);
+
+  WRAPPER_EXPORT char *document_get_creator(void *documentPtr);
 
 #ifdef __cplusplus
 }

@@ -9,5 +9,7 @@ void *ReturnsDocumentPtrFromDisk(const std::string &testDocumentName);
 void *ReturnsDocumentPtrFromBuffer(const std::string &testDocumentName);
 
 bool IsPdfExtractionCorrect(const std::string &pdfName);
+int ReturnsDocumentCreationDate(const std::string &testDocumentName);
+std::string ReturnsDocumentAuthor(const std::string &testDocumentName);
 
 #endif

@@ -18,6 +18,8 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(${exeName}
   wrapper_tests.cpp
+  pagetests.cpp
+  document_metadata_tests.cpp
   helpers.h
   helpers.cpp
 )

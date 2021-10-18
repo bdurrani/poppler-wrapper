@@ -56,8 +56,6 @@ extern "C"
 		cout << txt << endl
 				 << "------------------------------" << endl;
 		auto buffer = txt.to_utf8();
-		auto bf = txt.c_str();
-		bf += 0;
 		char *writable = reinterpret_cast<char *>(std::malloc(buffer.size() + 1));
 		std::copy(buffer.begin(), buffer.end(), writable);
 		writable[buffer.size()] = '\0'; // don't forget the terminating 0
