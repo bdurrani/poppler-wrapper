@@ -115,6 +115,13 @@ extern "C"
     auto doc = static_cast<document *>(documentPtr);
     return doc->get_creation_date();
   }
+
+  char *document_get_creator(void *documentPtr)
+  {
+    auto doc = static_cast<document *>(documentPtr);
+    auto creator = doc->get_creator();
+    return ustring_to_char(creator);
+  }
 }
 
 char *ustring_to_char(poppler::ustring input)

@@ -45,6 +45,8 @@ extern "C"
    */
   WRAPPER_EXPORT char *document_get_author(void *documentPtr);
 
+  WRAPPER_EXPORT char *document_get_creator(void *documentPtr);
+
 #ifdef __cplusplus
 }
 #endif
