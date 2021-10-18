@@ -40,6 +40,11 @@ extern "C"
    */
   WRAPPER_EXPORT int document_get_creation_date(void *documentPtr);
 
+  /**
+   * Returns document author
+   */
+  WRAPPER_EXPORT char *document_get_author(void *documentPtr);
+
 #ifdef __cplusplus
 }
 #endif

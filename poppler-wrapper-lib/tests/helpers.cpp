@@ -128,6 +128,21 @@ int ReturnsDocumentCreationDate(const string &testDocumentName)
   return creationDate;
 }
 
+string ReturnsDocumentAuthor(const string &testDocumentName)
+{
+  string testPdfPath = BuildTestPdfPath(testDocumentName);
+  if (!exists(testPdfPath.c_str()))
+  {
+    string errMessage("Test file not found: ");
+    errMessage += testPdfPath;
+    throw std::runtime_error(errMessage);
+  }
+  auto doc = create_new_document_from_file(testPdfPath.c_str());
+  auto author = document_get_author(doc);
+  delete_document(doc);
+  return author;
+}
+
 bool IsPdfExtractionCorrect(const string &pdfName)
 {
   string testPdfPath = BuildTestPdfPath(pdfName);
