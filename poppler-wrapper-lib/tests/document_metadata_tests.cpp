@@ -41,4 +41,9 @@ namespace
                            testing::Values(
                                std::make_tuple("WithActualText.pdf", ""),
                                std::make_tuple("metadata.pdf", "Test author")));
+
+  TEST(DocumentMetadataExtraction, DocumentSubject)
+  {
+    ASSERT_EQ(std::string("Test subjecÿè"), ReturnsDocumentSubject("metadata.pdf"));
+  }
 }

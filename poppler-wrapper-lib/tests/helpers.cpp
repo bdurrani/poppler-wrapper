@@ -128,6 +128,17 @@ string ReturnsDocumentAuthor(const string &testDocumentName)
   return authorString;
 }
 
+string ReturnsDocumentSubject(const string &testDocumentName)
+{
+  string testPdfPath = GetPathFromTestFileName(testDocumentName);
+  auto doc = create_new_document_from_file(testPdfPath.c_str());
+  auto subject = document_get_subject(doc);
+  delete_document(doc);
+  string subjectString(subject);
+  free_text_buffer(subject);
+  return subjectString;
+}
+
 bool IsPdfExtractionCorrect(const string &testDocumentName)
 {
   string testPdfPath = GetPathFromTestFileName(testDocumentName);
