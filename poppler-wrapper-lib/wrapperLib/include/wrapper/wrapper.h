@@ -33,7 +33,7 @@ extern "C"
   /**
    * Release the buffer returned by page_get_text()
    */
-  WRAPPER_EXPORT void delete_text_buffer(void *txtBuffer);
+  WRAPPER_EXPORT void free_text_buffer(void *txtBuffer);
 
   /**
    * Returns time_t representing the PDF creation date
@@ -46,6 +46,8 @@ extern "C"
   WRAPPER_EXPORT char *document_get_author(void *documentPtr);
 
   WRAPPER_EXPORT char *document_get_creator(void *documentPtr);
+
+  WRAPPER_EXPORT char *document_get_subject(void *documentPtr);
 
 #ifdef __cplusplus
 }

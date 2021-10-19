@@ -122,6 +122,13 @@ extern "C"
     auto creator = doc->get_creator();
     return ustring_to_char(creator);
   }
+
+  char *document_get_subject(void *documentPtr)
+  {
+    auto doc = static_cast<document *>(documentPtr);
+    auto subject = doc->get_subject();
+    return ustring_to_char(subject);
+  }
 }
 
 char *ustring_to_char(poppler::ustring input)

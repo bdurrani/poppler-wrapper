@@ -31,7 +31,7 @@ namespace Poppler
         return string.Empty;
       }
       string? result = Marshal.PtrToStringUTF8(txtBufferPtr);
-      PopplerNative.delete_text_buffer(txtBufferPtr);
+      PopplerNative.free_text_buffer(txtBufferPtr);
       return result ?? string.Empty;
     }
 

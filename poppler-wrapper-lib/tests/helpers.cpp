@@ -63,6 +63,18 @@ static string BuildGoldenDatasetPath(const string &pdfName)
   return path;
 }
 
+static string GetPathFromTestFileName(const string testFileName)
+{
+  string testPdfPath = BuildTestPdfPath(testFileName);
+  if (!exists(testPdfPath.c_str()))
+  {
+    string errMessage("Test file not found: ");
+    errMessage += testFileName;
+    throw std::runtime_error(errMessage);
+  }
+  return testPdfPath;
+}
+
 std::string GetWorkingDirectory()
 {
   char *cwd = get_current_dir_name();
@@ -74,37 +86,20 @@ std::string GetWorkingDirectory()
 
 int GetPageCount(const string &pdfName)
 {
-  string testPdfPath = BuildTestPdfPath(pdfName);
-  if (!exists(testPdfPath.c_str()))
-  {
-    cerr << "Test file not found" << testPdfPath << endl;
-    return -1;
-  }
+  string testPdfPath = GetPathFromTestFileName(pdfName);
   auto doc = create_new_document_from_file(testPdfPath.c_str());
   return document_get_pagecount(doc);
 }
 
 void *ReturnsDocumentPtrFromDisk(const string &testDocumentName)
 {
-  string testPdfPath = BuildTestPdfPath(testDocumentName);
-  if (!exists(testPdfPath.c_str()))
-  {
-    string errMessage("Test file not found: ");
-    errMessage += testDocumentName;
-    throw std::runtime_error(errMessage);
-  }
+  string testPdfPath = GetPathFromTestFileName(testDocumentName);
   return create_new_document_from_file(testPdfPath.c_str());
 }
 
 void *ReturnsDocumentPtrFromBuffer(const string &testDocumentName)
 {
-  std::string testPdfPath = BuildTestPdfPath(testDocumentName);
-  if (!exists(testPdfPath.c_str()))
-  {
-    string errMessage("Test file not found: ");
-    errMessage += testDocumentName;
-    throw std::runtime_error(errMessage);
-  }
+  string testPdfPath = GetPathFromTestFileName(testDocumentName);
 
   // https://stackoverflow.com/questions/18398167/how-to-copy-a-txt-file-to-a-char-array-in-c
   std::ifstream input(testPdfPath, ios::binary);
@@ -115,13 +110,7 @@ void *ReturnsDocumentPtrFromBuffer(const string &testDocumentName)
 
 int ReturnsDocumentCreationDate(const string &testDocumentName)
 {
-  string testPdfPath = BuildTestPdfPath(testDocumentName);
-  if (!exists(testPdfPath.c_str()))
-  {
-    string errMessage("Test file not found: ");
-    errMessage += testPdfPath;
-    throw std::runtime_error(errMessage);
-  }
+  string testPdfPath = GetPathFromTestFileName(testDocumentName);
   auto doc = create_new_document_from_file(testPdfPath.c_str());
   auto creationDate = document_get_creation_date(doc);
   delete_document(doc);
@@ -130,29 +119,18 @@ int ReturnsDocumentCreationDate(const string &testDocumentName)
 
 string ReturnsDocumentAuthor(const string &testDocumentName)
 {
-  string testPdfPath = BuildTestPdfPath(testDocumentName);
-  if (!exists(testPdfPath.c_str()))
-  {
-    string errMessage("Test file not found: ");
-    errMessage += testPdfPath;
-    throw std::runtime_error(errMessage);
-  }
+  string testPdfPath = GetPathFromTestFileName(testDocumentName);
   auto doc = create_new_document_from_file(testPdfPath.c_str());
   auto author = document_get_author(doc);
   delete_document(doc);
-  return author;
+  string authorString(author);
+  free_text_buffer(author);
+  return authorString;
 }
 
-bool IsPdfExtractionCorrect(const string &pdfName)
+bool IsPdfExtractionCorrect(const string &testDocumentName)
 {
-  string testPdfPath = BuildTestPdfPath(pdfName);
-  if (!exists(testPdfPath.c_str()))
-  {
-    string errMessage("Test file not found: ");
-    errMessage += testPdfPath;
-    throw std::runtime_error(errMessage);
-  }
-
+  string testPdfPath = GetPathFromTestFileName(testDocumentName);
   auto doc = create_new_document_from_file(testPdfPath.c_str());
   auto pageCount = document_get_pagecount(doc);
 
@@ -169,10 +147,10 @@ bool IsPdfExtractionCorrect(const string &pdfName)
     }
     string strText(txt);
     documentTxt.append(strText);
-    delete_text_buffer((void *)txt);
+    free_text_buffer((void *)txt);
   }
 
-  string txtFileName(pdfName);
+  string txtFileName(testDocumentName);
   txtFileName = txtFileName.substr(0, txtFileName.find_last_of('.')) + ".txt";
 
   auto goldenDatasetPath = BuildGoldenDatasetPath(txtFileName);
@@ -180,7 +158,7 @@ bool IsPdfExtractionCorrect(const string &pdfName)
   ifstream goldenDataStream(goldenDatasetPath);
   if (goldenDataStream.fail())
   {
-    string errMessage("Failed to read golden dataset from");
+    string errMessage("Failed to read golden dataset from ");
     errMessage += goldenDatasetPath;
     throw std::runtime_error(errMessage);
   }

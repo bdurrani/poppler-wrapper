@@ -62,7 +62,7 @@ extern "C"
 		return writable;
 	}
 
-	void delete_text_buffer(void *txtBuffer)
+	void free_text_buffer(void *txtBuffer)
 	{
 		std::free(txtBuffer);
 	}

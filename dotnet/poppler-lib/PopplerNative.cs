@@ -29,6 +29,6 @@ namespace Poppler
     public static extern IntPtr page_get_text(PageSafeHandle pagePtr, int textLayout);
 
     [DllImport(WrapperLibPath, CallingConvention = CallingConvention.Cdecl)]
-    public static extern IntPtr delete_text_buffer(IntPtr txtBufferPtr);
+    public static extern IntPtr free_text_buffer(IntPtr txtBufferPtr);
   }
 }
