@@ -139,6 +139,17 @@ string ReturnsDocumentSubject(const string &testDocumentName)
   return subjectString;
 }
 
+string ReturnsDocumentCreator(const string &testDocumentName)
+{
+  string testPdfPath = GetPathFromTestFileName(testDocumentName);
+  auto doc = create_new_document_from_file(testPdfPath.c_str());
+  auto creator = document_get_creator(doc);
+  delete_document(doc);
+  string creatorString(creator);
+  free_text_buffer(creator);
+  return creatorString;
+}
+
 bool IsPdfExtractionCorrect(const string &testDocumentName)
 {
   string testPdfPath = GetPathFromTestFileName(testDocumentName);

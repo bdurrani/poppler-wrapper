@@ -46,4 +46,9 @@ namespace
   {
     ASSERT_EQ(std::string("Test subjecÿè"), ReturnsDocumentSubject("metadata.pdf"));
   }
+
+  TEST(DocumentMetadataExtraction, DocumentCreator)
+  {
+    ASSERT_EQ(std::string("Adobe InDesign CS (3.0)"), ReturnsDocumentCreator("rbc.pdf"));
+  }
 }

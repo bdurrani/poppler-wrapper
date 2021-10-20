@@ -13,5 +13,6 @@ bool IsPdfExtractionCorrect(const std::string &pdfName);
 int ReturnsDocumentCreationDate(const std::string &testDocumentName);
 std::string ReturnsDocumentAuthor(const std::string &testDocumentName);
 std::string ReturnsDocumentSubject(const std::string &testDocumentName);
+std::string ReturnsDocumentCreator(const std::string &testDocumentName);
 
 #endif
