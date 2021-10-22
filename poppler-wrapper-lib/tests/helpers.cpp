@@ -88,7 +88,9 @@ int GetPageCount(const string &pdfName)
 {
   string testPdfPath = GetPathFromTestFileName(pdfName);
   auto doc = create_new_document_from_file(testPdfPath.c_str());
-  return document_get_pagecount(doc);
+  int pageCount = document_get_pagecount(doc);
+  delete_document(doc);
+  return pageCount;
 }
 
 void *ReturnsDocumentPtrFromDisk(const string &testDocumentName)
@@ -170,6 +172,7 @@ bool IsPdfExtractionCorrect(const string &testDocumentName)
     string strText(txt);
     documentTxt.append(strText);
     free_text_buffer((void *)txt);
+    delete_page(page);
   }
 
   string txtFileName(testDocumentName);

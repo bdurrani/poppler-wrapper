@@ -43,6 +43,21 @@ sudo xargs rm < install_manifest.txt
 
 This will remove anything that was installed via your CMake poppler build
 
+##### Running tests with Valgrid
+
+You will need `valgrind` installed.
+
+```bash
+ sudo apt install valgrind --yes
+```
+
+To run the tests with `valgrind` enabled.
+
+```bash
+cd build
+ctest -T memcheck
+```
+
 #### Mac os
 
 When installed using brew, poppler on the Mac Os is more up to date and does not

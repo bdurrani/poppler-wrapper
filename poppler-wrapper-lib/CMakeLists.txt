@@ -18,6 +18,10 @@ project(topProject)
 set(CMAKE_CXX_STANDARD 14)
 
 enable_testing()
+
+# required to perform memory tests
+include(CTest)
+
 # enable all compiler warning messages across
 # all projects
 # CppCon 2017: Mathieu Ropert “Using Modern CMake Patterns to Enforce a Good Modular Design”

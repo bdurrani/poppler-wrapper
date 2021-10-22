@@ -16,6 +16,9 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+find_program(MEMORYCHECK_COMMAND valgrind )
+set(MEMORYCHECK_COMMAND_OPTIONS "--trace-children=yes --leak-check=full" )
+
 add_executable(${exeName}
   wrapper_tests.cpp
   pagetests.cpp
