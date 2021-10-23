@@ -176,8 +176,10 @@ bool IsPdfExtractionCorrect(const string &testDocumentName)
     if (txt == nullptr)
     {
       cerr << "Output text was null" << endl;
+      delete_page(page);
       return false;
     }
+
     string strText(txt);
     documentTxt.append(strText);
     free_text_buffer((void *)txt);

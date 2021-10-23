@@ -14,15 +14,15 @@
 using namespace poppler;
 using namespace std;
 
-static std::ostream &operator<<(std::ostream &stream, const poppler::ustring &str)
-{
-	const poppler::byte_array ba = str.to_utf8();
-	for (const char c : ba)
-	{
-		stream << c;
-	}
-	return stream;
-}
+// static std::ostream &operator<<(std::ostream &stream, const poppler::ustring &str)
+// {
+// 	const poppler::byte_array ba = str.to_utf8();
+// 	for (const char c : ba)
+// 	{
+// 		stream << c;
+// 	}
+// 	return stream;
+// }
 
 extern "C"
 {
