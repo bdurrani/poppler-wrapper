@@ -10,8 +10,6 @@
 #include <poppler-version.h>
 
 #define UNUSED(x) (void)(x)
-// #define CoTaskMemAlloc(p) malloc(p)
-// #define CoTaskMemFree(p) free(p)
 
 using namespace poppler;
 using namespace std;
@@ -50,11 +48,7 @@ extern "C"
 		auto r = poppler::rectf();
 
 		auto txtLayout = static_cast<page::text_layout_enum>(textLayoutInt);
-		cout << "poppler version: " << poppler::version_string() << endl;
 		ustring txt = page->text(poppler::rectf(), txtLayout);
-		cout << "-----------------------" << endl;
-		cout << txt << endl
-				 << "------------------------------" << endl;
 		auto buffer = txt.to_utf8();
 		char *writable = reinterpret_cast<char *>(std::malloc(buffer.size() + 1));
 		std::copy(buffer.begin(), buffer.end(), writable);

@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup build tools
+      - name: Setup build and test tools
         run: |
           sudo apt purge --auto-remove cmake
           wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
@@ -30,7 +30,8 @@ jobs:
           libboost-container-dev \
           libopenjp2-7-dev \
           libfreetype-dev \
-          libfontconfig1-dev
+          libfontconfig1-dev \
+          valgrind
 
       - name: Build and install poppler cpp
         run: |

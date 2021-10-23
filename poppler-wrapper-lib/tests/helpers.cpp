@@ -4,6 +4,7 @@
 #include <iterator>
 #include <fstream>
 #include <sstream>
+#include <memory>
 #include "helpers.h"
 #include "wrapper/wrapper.h"
 
@@ -84,6 +85,18 @@ std::string GetWorkingDirectory()
   return workingDir;
 }
 
+static auto create_document_unique_ptr_from_file(std::string testPdfPath)
+{
+  auto doc = create_new_document_from_file(testPdfPath.c_str());
+  auto lambda_destroyer = [](void *ptr)
+  {
+    delete_document(ptr);
+  };
+
+  std::unique_ptr<void, decltype(lambda_destroyer)> uptr(doc, lambda_destroyer);
+  return uptr;
+}
+
 int GetPageCount(const string &pdfName)
 {
   string testPdfPath = GetPathFromTestFileName(pdfName);
@@ -113,18 +126,16 @@ void *ReturnsDocumentPtrFromBuffer(const string &testDocumentName)
 int ReturnsDocumentCreationDate(const string &testDocumentName)
 {
   string testPdfPath = GetPathFromTestFileName(testDocumentName);
-  auto doc = create_new_document_from_file(testPdfPath.c_str());
-  auto creationDate = document_get_creation_date(doc);
-  delete_document(doc);
+  auto doc = create_document_unique_ptr_from_file(testPdfPath);
+  auto creationDate = document_get_creation_date(doc.get());
   return creationDate;
 }
 
 string ReturnsDocumentAuthor(const string &testDocumentName)
 {
   string testPdfPath = GetPathFromTestFileName(testDocumentName);
-  auto doc = create_new_document_from_file(testPdfPath.c_str());
-  auto author = document_get_author(doc);
-  delete_document(doc);
+  auto doc = create_document_unique_ptr_from_file(testPdfPath);
+  auto author = document_get_author(doc.get());
   string authorString(author);
   free_text_buffer(author);
   return authorString;
@@ -133,9 +144,8 @@ string ReturnsDocumentAuthor(const string &testDocumentName)
 string ReturnsDocumentSubject(const string &testDocumentName)
 {
   string testPdfPath = GetPathFromTestFileName(testDocumentName);
-  auto doc = create_new_document_from_file(testPdfPath.c_str());
-  auto subject = document_get_subject(doc);
-  delete_document(doc);
+  auto doc = create_document_unique_ptr_from_file(testPdfPath);
+  auto subject = document_get_subject(doc.get());
   string subjectString(subject);
   free_text_buffer(subject);
   return subjectString;
@@ -144,9 +154,8 @@ string ReturnsDocumentSubject(const string &testDocumentName)
 string ReturnsDocumentCreator(const string &testDocumentName)
 {
   string testPdfPath = GetPathFromTestFileName(testDocumentName);
-  auto doc = create_new_document_from_file(testPdfPath.c_str());
-  auto creator = document_get_creator(doc);
-  delete_document(doc);
+  auto doc = create_document_unique_ptr_from_file(testPdfPath);
+  auto creator = document_get_creator(doc.get());
   string creatorString(creator);
   free_text_buffer(creator);
   return creatorString;
@@ -155,13 +164,13 @@ string ReturnsDocumentCreator(const string &testDocumentName)
 bool IsPdfExtractionCorrect(const string &testDocumentName)
 {
   string testPdfPath = GetPathFromTestFileName(testDocumentName);
-  auto doc = create_new_document_from_file(testPdfPath.c_str());
-  auto pageCount = document_get_pagecount(doc);
+  auto doc = create_document_unique_ptr_from_file(testPdfPath);
+  auto pageCount = document_get_pagecount(doc.get());
 
   std::string documentTxt;
   for (int i = 0; i < pageCount; i++)
   {
-    auto page = document_get_page(doc, i);
+    auto page = document_get_page(doc.get(), i);
     const char *txt = page_get_text(page, 0);
 
     if (txt == nullptr)

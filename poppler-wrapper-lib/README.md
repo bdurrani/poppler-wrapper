@@ -58,6 +58,18 @@ cd build
 ctest -T memcheck
 ```
 
+If you need to list the tests that will run instead of actually running the tests
+
+```bash
+ctest -T memcheck -N
+```
+
+If you need to run specific tests
+
+```bash
+ctest -T memcheck -R CorrectlyExtractsCreationDate
+```
+
 #### Mac os
 
 When installed using brew, poppler on the Mac Os is more up to date and does not
