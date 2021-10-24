@@ -24,10 +24,12 @@ add_executable(${exeName}
   pagetests.cpp
   document_metadata_tests.cpp
   helpers.h
-  test-helpers/document_helpers.cpp
   test-helpers/utilities.h
   test-helpers/utilities.cpp
-
+  test-helpers/document_helpers.cpp
+  test-helpers/document_helpers.h
+  test-helpers/page_helpers.h
+  test-helpers/page_helpers.cpp
 )
 
 target_link_libraries(${exeName}

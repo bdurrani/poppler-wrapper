@@ -1,17 +1,14 @@
-#include <unistd.h>
-#include <sys/stat.h>
-#include <iostream>
-#include <iterator>
-#include <fstream>
-#include <sstream>
-#include <memory>
-#include "../helpers.h"
+#include <iostream> // cerr
+#include <fstream>  // ifstream
+#include <sstream>  // stringstream
 #include "wrapper/wrapper.h"
 #include "utilities.h"
+#include "document_helpers.h"
+#include "page_helpers.h"
 
 using namespace std;
 
-auto create_document_unique_ptr_from_file(const std::string &testPdfPath)
+Void_Unique_Ptr_With_Deleter create_document_unique_ptr_from_file(const std::string &testPdfPath)
 {
   auto doc = create_new_document_from_file(testPdfPath.c_str());
   auto lambda_destroyer = [](void *ptr)
@@ -19,7 +16,7 @@ auto create_document_unique_ptr_from_file(const std::string &testPdfPath)
     delete_document(ptr);
   };
 
-  std::unique_ptr<void, decltype(lambda_destroyer)> uptr(doc, lambda_destroyer);
+  std::unique_ptr<void, Void_Function_Ptr> uptr(doc, lambda_destroyer);
   return uptr;
 }
 
@@ -94,20 +91,18 @@ bool IsPdfExtractionCorrect(const string &testDocumentName)
   std::string documentTxt;
   for (int i = 0; i < pageCount; i++)
   {
-    auto page = document_get_page(doc.get(), i);
-    const char *txt = page_get_text(page, 0);
+    auto page = create_page_unique_ptr_from_document(doc.get(), i);
+    const char *txt = page_get_text(page.get(), 0);
 
     if (txt == nullptr)
     {
       cerr << "Output text was null" << endl;
-      delete_page(page);
       return false;
     }
 
     string strText(txt);
     documentTxt.append(strText);
     free_text_buffer((void *)txt);
-    delete_page(page);
   }
 
   string txtFileName(testDocumentName);
