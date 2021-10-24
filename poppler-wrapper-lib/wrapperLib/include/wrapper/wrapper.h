@@ -1,7 +1,7 @@
 #ifndef __WRAPPER_H__
 #define __WRAPPER_H__
 
-#include <stdint.h>
+#include <cstdint> // int32_t
 #include "wrapper_export.h"
 
 #ifdef __cplusplus
