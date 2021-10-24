@@ -5,87 +5,13 @@
 #include <fstream>
 #include <sstream>
 #include <memory>
-#include "helpers.h"
+#include "../helpers.h"
 #include "wrapper/wrapper.h"
+#include "utilities.h"
 
 using namespace std;
 
-/**
- * Cross platform path separator
- **/
-const char kPathSeparator =
-#ifdef _WIN32
-    '\\';
-#else
-    '/';
-#endif
-
-const string TestFolderName = "test-assets";
-
-/**
- * Returns true if the file exists
- * @param Fully qualified path to file
- */
-static inline bool exists(const char *path)
-{
-  struct stat buffer;
-  return (stat(path, &buffer) == 0);
-}
-
-/**
- * Returns the fully qualified path to the location of the test
- * PDF files
- * @param string Name of the PDF file
- */
-static string BuildTestPdfPath(const string &pdfName)
-{
-  string path(".");
-  path += kPathSeparator;
-  path += TestFolderName;
-  path += kPathSeparator;
-  path += pdfName;
-  return path;
-}
-
-/**
- * Returns the fully qualified path to the pdftotext
- * extraction result.
- * @param string Name of the result file
- */
-static string BuildGoldenDatasetPath(const string &pdfName)
-{
-  string path(".");
-  path += kPathSeparator;
-  path += TestFolderName;
-  path += kPathSeparator;
-  path += "golden-data";
-  path += kPathSeparator;
-  path += pdfName;
-  return path;
-}
-
-static string GetPathFromTestFileName(const string testFileName)
-{
-  string testPdfPath = BuildTestPdfPath(testFileName);
-  if (!exists(testPdfPath.c_str()))
-  {
-    string errMessage("Test file not found: ");
-    errMessage += testFileName;
-    throw std::runtime_error(errMessage);
-  }
-  return testPdfPath;
-}
-
-std::string GetWorkingDirectory()
-{
-  char *cwd = get_current_dir_name();
-  string workingDir(cwd);
-  free(cwd);
-
-  return workingDir;
-}
-
-static auto create_document_unique_ptr_from_file(std::string testPdfPath)
+auto create_document_unique_ptr_from_file(const std::string &testPdfPath)
 {
   auto doc = create_new_document_from_file(testPdfPath.c_str());
   auto lambda_destroyer = [](void *ptr)
@@ -95,15 +21,6 @@ static auto create_document_unique_ptr_from_file(std::string testPdfPath)
 
   std::unique_ptr<void, decltype(lambda_destroyer)> uptr(doc, lambda_destroyer);
   return uptr;
-}
-
-int GetPageCount(const string &pdfName)
-{
-  string testPdfPath = GetPathFromTestFileName(pdfName);
-  auto doc = create_new_document_from_file(testPdfPath.c_str());
-  int pageCount = document_get_pagecount(doc);
-  delete_document(doc);
-  return pageCount;
 }
 
 void *ReturnsDocumentPtrFromDisk(const string &testDocumentName)
@@ -121,6 +38,13 @@ void *ReturnsDocumentPtrFromBuffer(const string &testDocumentName)
   string contents((istreambuf_iterator<char>(input)),
                   std::istreambuf_iterator<char>());
   return create_new_document_from_buffer(contents.data(), contents.size());
+}
+
+int GetPageCount(const string &testDocumentName)
+{
+  string testPdfPath = GetPathFromTestFileName(testDocumentName);
+  auto doc = create_document_unique_ptr_from_file(testPdfPath);
+  return document_get_pagecount(doc.get());
 }
 
 int ReturnsDocumentCreationDate(const string &testDocumentName)
