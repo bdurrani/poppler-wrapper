@@ -50,6 +50,11 @@ extern "C"
 
   WRAPPER_EXPORT char *document_get_subject(void *documentPtr);
 
+  /**
+   * Returns the document's keywords
+   */
+  WRAPPER_EXPORT char *document_get_keywords(void *documentPtr);
+
 #ifdef __cplusplus
 }
 #endif

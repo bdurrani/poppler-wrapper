@@ -76,3 +76,14 @@ string GetPathFromTestFileName(const string &testFileName)
   }
   return testPdfPath;
 }
+
+Char_Unique_Ptr_With_Deleter create_unique_ptr_from_text_buffer(char *buffer)
+{
+  auto page_destroyer = [](char *ptr)
+  {
+    free_text_buffer(ptr);
+  };
+
+  std::unique_ptr<char, Char_Function_Ptr> uptr(buffer, page_destroyer);
+  return uptr;
+}
