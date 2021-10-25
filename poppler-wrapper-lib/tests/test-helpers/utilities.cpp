@@ -76,12 +76,3 @@ string GetPathFromTestFileName(const string &testFileName)
   }
   return testPdfPath;
 }
-
-std::string GetWorkingDirectory()
-{
-  char *cwd = get_current_dir_name();
-  string workingDir(cwd);
-  free(cwd);
-
-  return workingDir;
-}
