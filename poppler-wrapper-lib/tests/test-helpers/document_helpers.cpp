@@ -56,20 +56,16 @@ string ReturnsDocumentAuthor(const string &testDocumentName)
 {
   string testPdfPath = GetPathFromTestFileName(testDocumentName);
   auto doc = create_document_unique_ptr_from_file(testPdfPath);
-  auto author = document_get_author(doc.get());
-  string authorString(author);
-  free_text_buffer(author);
-  return authorString;
+  auto author = create_unique_ptr_from_text_buffer(document_get_author(doc.get()));
+  return author.get();
 }
 
 string ReturnsDocumentSubject(const string &testDocumentName)
 {
   string testPdfPath = GetPathFromTestFileName(testDocumentName);
   auto doc = create_document_unique_ptr_from_file(testPdfPath);
-  auto subject = document_get_subject(doc.get());
-  string subjectString(subject);
-  free_text_buffer(subject);
-  return subjectString;
+  auto subject = create_unique_ptr_from_text_buffer(document_get_subject(doc.get()));
+  return subject.get();
 }
 
 string ReturnsDocumentCreator(const string &testDocumentName)
@@ -77,8 +73,7 @@ string ReturnsDocumentCreator(const string &testDocumentName)
   string testPdfPath = GetPathFromTestFileName(testDocumentName);
   auto doc = create_document_unique_ptr_from_file(testPdfPath);
   auto creator = create_unique_ptr_from_text_buffer(document_get_creator(doc.get()));
-  string creatorString(creator.get());
-  return creatorString;
+  return creator.get();
 }
 
 string ReturnsDocumentKeywords(const string &testDocumentName)
@@ -86,8 +81,7 @@ string ReturnsDocumentKeywords(const string &testDocumentName)
   string testPdfPath = GetPathFromTestFileName(testDocumentName);
   auto doc = create_document_unique_ptr_from_file(testPdfPath);
   auto buffer_ptr = create_unique_ptr_from_text_buffer(document_get_keywords(doc.get()));
-  string keywords(buffer_ptr.get());
-  return keywords;
+  return buffer_ptr.get();
 }
 
 bool IsPdfExtractionCorrect(const string &testDocumentName)
