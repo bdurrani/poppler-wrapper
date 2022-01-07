@@ -1,6 +1,4 @@
-#include <memory>
-#include <cstdlib>
-#include <string.h>
+// #include <string.h>
 #include <algorithm> // std::copy
 #include <iostream>
 #include <poppler-document.h>
@@ -19,24 +17,6 @@ char *ustring_to_char(poppler::ustring input);
 
 extern "C"
 {
-  char *test(const char *filePath)
-  {
-    document *doc = document::load_from_file(filePath, "", "");
-    if (!doc)
-    {
-      return nullptr;
-    }
-    std::cerr << "im here" << std::endl;
-
-    auto pageCount = doc->pages();
-    UNUSED(pageCount);
-    auto page = doc->create_page(0);
-    ustring txt = page->text();
-    char *writable = reinterpret_cast<char *>(std::malloc(txt.size() + 1));
-    std::copy(txt.begin(), txt.end(), writable);
-    writable[txt.size()] = '\0'; // don't forget the terminating 0
-    return writable;
-  }
 
   char *utf8_test(const char *filePath)
   {
@@ -135,6 +115,13 @@ extern "C"
     auto doc = static_cast<document *>(documentPtr);
     auto subject = doc->get_keywords();
     return ustring_to_char(subject);
+  }
+
+  char *document_get_producer(void *documentPtr)
+  {
+    auto doc = static_cast<document *>(documentPtr);
+    auto producer = doc->get_producer();
+    return ustring_to_char(producer);
   }
 }
 

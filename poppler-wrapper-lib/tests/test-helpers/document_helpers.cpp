@@ -84,6 +84,14 @@ string ReturnsDocumentKeywords(const string &testDocumentName)
   return buffer_ptr.get();
 }
 
+string ReturnsDocumentProducer(const string &testDocumentName)
+{
+  string testPdfPath = GetPathFromTestFileName(testDocumentName);
+  auto doc = create_document_unique_ptr_from_file(testPdfPath);
+  auto buffer_ptr = create_unique_ptr_from_text_buffer(document_get_producer(doc.get()));
+  return buffer_ptr.get();
+}
+
 bool IsPdfExtractionCorrect(const string &testDocumentName)
 {
   string testPdfPath = GetPathFromTestFileName(testDocumentName);

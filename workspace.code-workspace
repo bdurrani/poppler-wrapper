@@ -9,7 +9,8 @@
   ],
   "settings": {
     "files.associations": {
-      "iosfwd": "cpp"
+      "iosfwd": "cpp",
+      "string": "cpp"
     }
   }
 }

@@ -56,4 +56,9 @@ namespace
   {
     ASSERT_EQ(std::string("Key words"), ReturnsDocumentKeywords("metadata.pdf"));
   }
+
+  TEST(DocumentMetadataExtraction, DocumentProducer)
+  {
+    ASSERT_EQ(std::string("PDF Expert 7.7.4 iPad"), ReturnsDocumentProducer("metadata.pdf"));
+  }
 }
