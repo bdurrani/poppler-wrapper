@@ -1,4 +1,4 @@
-# CMake Notes
+# C++ Library README
 
 ### Install latest CMake on Ubuntu
 
